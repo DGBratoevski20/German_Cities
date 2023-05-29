@@ -53,9 +53,32 @@ class _MyAppState extends State<MyApp> {
     "Bochum",
   ];
 
+  final List<String> _cityInfo = [
+    "Info for Berlin",
+    "Info for Hamburg",
+    "Info for Munich",
+    "Info for Cologne",
+    "Info for Frankfurt",
+    "Info for Stuttgart",
+    "Info for Düsseldorf",
+    "Info for Dortmund",
+    "Info for Essen",
+    "Info for Leipzig",
+    "Info for Bremen",
+    "Info for Dresden",
+    "Info for Hanover",
+    "Info for Nuremberg",
+    "Info for Duisburg",
+    "Info for Bochum",
+  ];
+
   void _onImageSelected(int index) {
     setState(() {
-      _selectedIndex = index;
+      if (_selectedIndex == index) {
+        _selectedIndex = -1; // Unselect the city if it's already selected
+      } else {
+        _selectedIndex = index;
+      }
     });
   }
 
@@ -65,7 +88,7 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
-  @override
+@override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'German cities',
@@ -76,30 +99,45 @@ class _MyAppState extends State<MyApp> {
           centerTitle: true,
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                ),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => _onImageSelected(index),
+  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+    crossAxisCount: 4,
+  ),
+  itemBuilder: (context, index) {
+    return GestureDetector(
+      onTap: () => _onImageSelected(index),
+      child: Container(
+        margin: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          image: DecorationImage(
+            image: NetworkImage(_imageUrls[index]),
+            fit: BoxFit.cover,
+          ),
+          border: _selectedIndex == index
+              ? Border.all(color: Colors.blue, width: 4)
+              : null,
+        ),
+        child: Stack(
+          children: [
+            _selectedIndex != index
+                ? Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
                     child: Container(
-                      margin: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: NetworkImage(_imageUrls[index]),
-                          fit: BoxFit.cover,
+                        color: Colors.black54,
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(10),
+                          bottomRight: Radius.circular(10),
                         ),
-                        border: _selectedIndex == index
-                            ? Border.all(color: Colors.blue, width: 4)
-                            : null,
                       ),
                       child: Align(
-                        alignment: Alignment.bottomCenter,
+                        alignment: Alignment.center,
                         child: Text(
                           _imageNames[index],
                           style: TextStyle(
@@ -110,61 +148,54 @@ class _MyAppState extends State<MyApp> {
                         ),
                       ),
                     ),
-                  );
-                },
-                itemCount: _imageUrls.length,
+                  )
+                : SizedBox(),
+            _selectedIndex == index
+                ? Positioned(
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      alignment: Alignment.center,
+                      color: Colors.black54.withOpacity(0.6),
+                      child: Text(
+                        _imageNames[index],
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox(),
+          ],
+        ),
+      ),
+    );
+  },
+  itemCount: _imageUrls.length,
+),
+            ),
+            AnimatedContainer(
+              duration: Duration(milliseconds: 200),
+              margin: EdgeInsets.only(top: 20, bottom: 10),
+              child: ElevatedButton(
+                onPressed: _selectedIndex == -1 ? null : _onAnimationButtonPressed,
+                child: Text(
+                  _showAnimation ? 'Unselect' : 'Select',
+                ),
               ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                if (_selectedIndex >= 0) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Selected City'),
-                        content: Text(_imageNames[_selectedIndex]),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Error'),
-                        content: Text('No city selected.'),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('OK'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                }
-              },
-              child: Text('Select'),
-            ),
             SizedBox(height: 10),
-            _showAnimation
+            _showAnimation && _selectedIndex != -1
                 ? Expanded(
                     child: Container(
-                      color: Colors.red, // Set the background color to blue
+                      color: Colors.red, // Set the background color to red
                       alignment: Alignment.center,
                       child: Text(
-                        _selectedIndex >= 0 ? _imageNames[_selectedIndex] : '',
+                        _cityInfo[_selectedIndex],
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -179,4 +210,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-}
+} 
