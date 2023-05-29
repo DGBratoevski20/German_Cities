@@ -73,15 +73,21 @@ class _MyAppState extends State<MyApp> {
   ];
 
   void _onImageSelected(int index) {
-    setState(() {
-      if (_selectedIndex == index) {
-        _selectedIndex = -1; // Unselect the city if it's already selected
-      } else {
-        _selectedIndex = index;
-      }
-    });
-  }
-
+  setState(() {
+    if (_showAnimation) {
+      // If the button says "Unselect," do not allow selecting other cities
+      return;
+    }
+    
+    if (_selectedIndex == -1) {
+      _selectedIndex = index; // Select the city
+    } else if (_selectedIndex == index) {
+      _selectedIndex = -1; // Unselect the city
+    } else {
+      _selectedIndex = index; // Select a different city
+    }
+  });
+}
   void _onAnimationButtonPressed() {
     setState(() {
       _showAnimation = !_showAnimation; // Toggle the animation state
