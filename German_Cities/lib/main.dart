@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,6 +16,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   int _selectedIndex = -1;
   bool _showAnimation = false;
+  bool _showMap = false;
 
   final List<String> _imageUrls = [
     "https://media.cntraveler.com/photos/5b914e80d5806340ca438db1/1:1/w_2250,h_2250,c_limit/BrandenburgGate_2018_GettyImages-549093677.jpg7",
@@ -73,28 +76,53 @@ class _MyAppState extends State<MyApp> {
   ];
 
   void _onImageSelected(int index) {
-  setState(() {
-    if (_showAnimation) {
-      // If the button says "Unselect," do not allow selecting other cities
-      return;
-    }
-    
-    if (_selectedIndex == -1) {
-      _selectedIndex = index; // Select the city
-    } else if (_selectedIndex == index) {
-      _selectedIndex = -1; // Unselect the city
-    } else {
-      _selectedIndex = index; // Select a different city
-    }
-  });
-}
-  void _onAnimationButtonPressed() {
     setState(() {
-      _showAnimation = !_showAnimation; // Toggle the animation state
+      if (_showAnimation) {
+        // If the button says "Unselect," do not allow selecting other cities
+        return;
+      }
+
+      if (_selectedIndex == -1) {
+        _selectedIndex = index; // Select the city
+        _showMap = true; // Show the map when a city is selected
+      } else if (_selectedIndex == index) {
+        _selectedIndex = -1; // Unselect the city
+        _showMap = false; // Hide the map when the city is unselected
+      } else {
+        _selectedIndex = index; // Select a different city
+        _showMap = true; // Show the map for the newly selected city
+      }
     });
   }
 
-@override
+  void _onAnimationButtonPressed() {
+    setState(() {
+      _showAnimation = !_showAnimation; // Toggle the animation state
+      if (!_showAnimation) {
+        _showMap = false; // Reset the map visibility when animation is toggled off
+      }
+    });
+  }
+
+  Container _buildMapContainer() {
+    return Container(
+      height: 300, // Adjust the height as needed
+      child: FlutterMap(
+        options: MapOptions(
+          center: LatLng(51.1657, 10.4515), // Specify the initial map center coordinates
+          zoom: 6.0, // Specify the initial zoom level
+        ),
+        layers: [
+          TileLayerOptions(
+            urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            subdomains: ['a', 'b', 'c'],
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'German cities',
@@ -108,81 +136,81 @@ class _MyAppState extends State<MyApp> {
           children: [
             Expanded(
               child: GridView.builder(
-  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    crossAxisCount: 4,
-  ),
-  itemBuilder: (context, index) {
-    return GestureDetector(
-      onTap: () => _onImageSelected(index),
-      child: Container(
-        margin: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          image: DecorationImage(
-            image: NetworkImage(_imageUrls[index]),
-            fit: BoxFit.cover,
-          ),
-          border: _selectedIndex == index
-              ? Border.all(color: Colors.blue, width: 4)
-              : null,
-        ),
-        child: Stack(
-          children: [
-            _selectedIndex != index
-                ? Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                ),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () => _onImageSelected(index),
                     child: Container(
-                      padding: EdgeInsets.all(8),
+                      margin: EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.black54,
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(10),
-                          bottomRight: Radius.circular(10),
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: NetworkImage(_imageUrls[index]),
+                          fit: BoxFit.cover,
                         ),
+                        border: _selectedIndex == index
+                            ? Border.all(color: Colors.blue, width: 4)
+                            : null,
                       ),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          _imageNames[index],
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+                      child: Stack(
+                        children: [
+                          _selectedIndex != index
+                              ? Positioned(
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Container(
+                                    padding: EdgeInsets.all(8),
+                                    decoration: BoxDecoration(
+                                      color: Colors.black54,
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(10),
+                                        bottomRight: Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        _imageNames[index],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : SizedBox(),
+                          _selectedIndex == index
+                              ? Positioned(
+                                  top: 0,
+                                  bottom: 0,
+                                  left: 0,
+                                  right: 0,
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    color: Colors.black54.withOpacity(0.6),
+                                    child: Text(
+                                      _imageNames[index],
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : SizedBox(),
+                        ],
                       ),
                     ),
-                  )
-                : SizedBox(),
-            _selectedIndex == index
-                ? Positioned(
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      alignment: Alignment.center,
-                      color: Colors.black54.withOpacity(0.6),
-                      child: Text(
-                        _imageNames[index],
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  )
-                : SizedBox(),
-          ],
-        ),
-      ),
-    );
-  },
-  itemCount: _imageUrls.length,
-),
+                  );
+                },
+                itemCount: _imageUrls.length,
+              ),
             ),
             AnimatedContainer(
               duration: Duration(milliseconds: 200),
@@ -195,7 +223,10 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             SizedBox(height: 10),
-            _showAnimation && _selectedIndex != -1
+            _showAnimation && _selectedIndex != -1 && _showMap
+                ? _buildMapContainer()
+                : SizedBox(),
+            _showAnimation && _selectedIndex != -1 && !_showMap
                 ? Expanded(
                     child: Container(
                       color: Colors.red, // Set the background color to red
@@ -216,4 +247,4 @@ class _MyAppState extends State<MyApp> {
       ),
     );
   }
-} 
+}
