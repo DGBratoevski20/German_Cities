@@ -2,22 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  MyApp({Key? key}) : super(key: key);
-
+class GermanCitiesApp extends StatefulWidget {
   @override
-  _MyAppState createState() => _MyAppState();
+  _GermanCitiesAppState createState() => _GermanCitiesAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _GermanCitiesAppState extends State<GermanCitiesApp> {
   int _selectedIndex = -1;
-  bool _showAnimation = false;
   bool _showMap = false;
-
+  
   final List<String> _imageUrls = [
     "https://media.cntraveler.com/photos/5b914e80d5806340ca438db1/1:1/w_2250,h_2250,c_limit/BrandenburgGate_2018_GettyImages-549093677.jpg7",
     "https://a.cdn-hotels.com/gdcs/production19/d1430/c53e41bd-1e9b-4c80-b15b-01e81b1c4679.jpg?impolicy=fcrop&w=800&h=533&q=medium",
@@ -36,7 +29,6 @@ class _MyAppState extends State<MyApp> {
     "https://image.jimcdn.com/app/cms/image/transf/dimension=4096x4096:format=jpg/path/sa6549607c78f5c11/image/idf6d09279ea1b3ad/version/1471191639/image.jpg",
     "https://content.r9cdn.net/rimg/dimg/08/8c/98d64b51-city-9410-1693517046b.jpg?width=1366&height=768&xhint=3561&yhint=2751&crop=true",
   ];
-
   final List<String> _imageNames = [
     "Berlin",
     "Hamburg",
@@ -52,8 +44,8 @@ class _MyAppState extends State<MyApp> {
     "Dresden",
     "Hanover",
     "Nuremberg",
-    "Duisburg",
-    "Bochum",
+    "Dresden",
+    "Hanover",
   ];
 
   final List<String> _cityInfo = [
@@ -75,176 +67,129 @@ class _MyAppState extends State<MyApp> {
     "Info for Bochum",
   ];
 
-  void _onImageSelected(int index) {
-    setState(() {
-      if (_showAnimation) {
-        // If the button says "Unselect," do not allow selecting other cities
-        return;
-      }
+  final List<LatLng> _cityCoordinates = [
+    LatLng(52.520008, 13.404954),
+    LatLng(53.551086, 9.993682),
+    LatLng(48.135125, 11.581981),
+    LatLng(50.937531, 6.960279),
+    LatLng(50.110924, 8.682127),
+    LatLng(48.775418, 9.181758),
+    LatLng(51.227741, 6.773456),
+    LatLng(51.513587, 7.465298),
+    LatLng(51.458223, 7.015817),
+    LatLng(51.340632, 12.374732),
+    LatLng(53.079296, 8.801694),
+    LatLng(51.050407, 13.737262),
+    LatLng(52.375891, 9.732010),
+    LatLng(49.452103, 11.076665),
+    LatLng(52.375891, 9.732010),
+    LatLng(49.452103, 11.076665),
+  ];
 
-      if (_selectedIndex == -1) {
-        _selectedIndex = index; // Select the city
-        _showMap = true; // Show the map when a city is selected
-      } else if (_selectedIndex == index) {
-        _selectedIndex = -1; // Unselect the city
-        _showMap = false; // Hide the map when the city is unselected
-      } else {
-        _selectedIndex = index; // Select a different city
-        _showMap = true; // Show the map for the newly selected city
-      }
+   void _onImageSelected(int index) {
+    setState(() {
+      _selectedIndex = index;
+      _showMap = !_showMap;
     });
   }
 
-  void _onAnimationButtonPressed() {
-    setState(() {
-      _showAnimation = !_showAnimation; // Toggle the animation state
-      if (!_showAnimation) {
-        _showMap = false; // Reset the map visibility when animation is toggled off
-      }
-    });
-  }
-
-  Container _buildMapContainer() {
-    return Container(
-      height: 300, // Adjust the height as needed
-      child: FlutterMap(
-        options: MapOptions(
-          center: LatLng(51.1657, 10.4515), // Specify the initial map center coordinates
-          zoom: 6.0, // Specify the initial zoom level
+  Widget _buildMapContainer() {
+    return FlutterMap(
+      options: MapOptions(
+        center: _cityCoordinates[_selectedIndex],
+        zoom: 13.0,
+        interactiveFlags: InteractiveFlag.all,
+      ),
+      layers: [
+        TileLayerOptions(
+          urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          subdomains: ['a', 'b', 'c'],
         ),
-        layers: [
-          TileLayerOptions(
-            urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            subdomains: ['a', 'b', 'c'],
+        MarkerLayerOptions(
+          markers: [
+            Marker(
+              width: 80.0,
+              height: 80.0,
+              point: _cityCoordinates[_selectedIndex],
+              builder: (ctx) => Container(
+                child: Icon(
+                  Icons.location_on,
+                  color: Colors.red,
+                  size: 50,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCityInfo() {
+    return Container(
+      padding: EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 100,
+            backgroundImage: NetworkImage(_imageUrls[_selectedIndex]),
+          ),
+          SizedBox(height: 16.0),
+          Text(
+            _imageNames[_selectedIndex],
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 16.0),
+          Text(
+            "Some information about ${_imageNames[_selectedIndex]} goes here.",
+            style: TextStyle(fontSize: 16.0),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
     );
   }
 
+  Widget _buildCityGrid() {
+    return GridView.count(
+      crossAxisCount: 4,
+      padding: EdgeInsets.all(16.0),
+      childAspectRatio: 1.0,
+      mainAxisSpacing: 16.0,
+      crossAxisSpacing: 16.0,
+      children: List.generate(_imageUrls.length, (index) {
+        return GestureDetector(
+          onTap: () => _onImageSelected(index),
+          child: CircleAvatar(
+            radius: 50,
+            backgroundImage: NetworkImage(_imageUrls[index]),
+          ),
+        );
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'German cities',
-      debugShowCheckedModeBanner: false, // Remove debug banner
       home: Scaffold(
         appBar: AppBar(
-          title: Text('German cities'),
-          centerTitle: true,
+          title: Text("German Cities"),
         ),
-        body: Column(
-          children: [
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                ),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => _onImageSelected(index),
-                    child: Container(
-                      margin: EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: NetworkImage(_imageUrls[index]),
-                          fit: BoxFit.cover,
-                        ),
-                        border: _selectedIndex == index
-                            ? Border.all(color: Colors.blue, width: 4)
-                            : null,
-                      ),
-                      child: Stack(
-                        children: [
-                          _selectedIndex != index
-                              ? Positioned(
-                                  bottom: 0,
-                                  left: 0,
-                                  right: 0,
-                                  child: Container(
-                                    padding: EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      color: Colors.black54,
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10),
-                                        bottomRight: Radius.circular(10),
-                                      ),
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        _imageNames[index],
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : SizedBox(),
-                          _selectedIndex == index
-                              ? Positioned(
-                                  top: 0,
-                                  bottom: 0,
-                                  left: 0,
-                                  right: 0,
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    color: Colors.black54.withOpacity(0.6),
-                                    child: Text(
-                                      _imageNames[index],
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : SizedBox(),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-                itemCount: _imageUrls.length,
-              ),
-            ),
-            AnimatedContainer(
-              duration: Duration(milliseconds: 200),
-              margin: EdgeInsets.only(top: 20, bottom: 10),
-              child: ElevatedButton(
-                onPressed: _selectedIndex == -1 ? null : _onAnimationButtonPressed,
-                child: Text(
-                  _showAnimation ? 'Unselect' : 'Select',
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            _showAnimation && _selectedIndex != -1 && _showMap
-                ? _buildMapContainer()
-                : SizedBox(),
-            _showAnimation && _selectedIndex != -1 && !_showMap
-                ? Expanded(
-                    child: Container(
-                      color: Colors.red, // Set the background color to red
-                      alignment: Alignment.center,
-                      child: Text(
-                        _cityInfo[_selectedIndex],
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  )
-                : SizedBox(),
-          ],
-        ),
+        body: _showMap
+            ? _buildMapContainer()
+            : _selectedIndex != -1
+                ? _buildCityInfo()
+                : _buildCityGrid(),
       ),
     );
   }
+}
+
+void main() {
+  runApp(GermanCitiesApp());
 }
