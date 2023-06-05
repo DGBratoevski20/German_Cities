@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+void main() {
+  runApp(GermanCitiesApp());
+}
+
 class GermanCitiesApp extends StatefulWidget {
   @override
   _GermanCitiesAppState createState() => _GermanCitiesAppState();
@@ -11,7 +15,9 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
   int _selectedIndex = -1;
   bool _showMap = false;
   
-  final List<String> _imageUrls = [
+  int _hoveredIndex = -1;
+
+   final List<String> _imageUrls = [
     "https://media.cntraveler.com/photos/5b914e80d5806340ca438db1/1:1/w_2250,h_2250,c_limit/BrandenburgGate_2018_GettyImages-549093677.jpg7",
     "https://a.cdn-hotels.com/gdcs/production19/d1430/c53e41bd-1e9b-4c80-b15b-01e81b1c4679.jpg?impolicy=fcrop&w=800&h=533&q=medium",
     "https://cdn.britannica.com/06/152206-050-72BD5CAC/twin-towers-Church-of-Our-Lady-Munich.jpg",
@@ -29,6 +35,7 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
     "https://image.jimcdn.com/app/cms/image/transf/dimension=4096x4096:format=jpg/path/sa6549607c78f5c11/image/idf6d09279ea1b3ad/version/1471191639/image.jpg",
     "https://content.r9cdn.net/rimg/dimg/08/8c/98d64b51-city-9410-1693517046b.jpg?width=1366&height=768&xhint=3561&yhint=2751&crop=true",
   ];
+
   final List<String> _imageNames = [
     "Berlin",
     "Hamburg",
@@ -46,25 +53,6 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
     "Nuremberg",
     "Dresden",
     "Hanover",
-  ];
-
-  final List<String> _cityInfo = [
-    "Info for Berlin",
-    "Info for Hamburg",
-    "Info for Munich",
-    "Info for Cologne",
-    "Info for Frankfurt",
-    "Info for Stuttgart",
-    "Info for Düsseldorf",
-    "Info for Dortmund",
-    "Info for Essen",
-    "Info for Leipzig",
-    "Info for Bremen",
-    "Info for Dresden",
-    "Info for Hanover",
-    "Info for Nuremberg",
-    "Info for Duisburg",
-    "Info for Bochum",
   ];
 
   final List<LatLng> _cityCoordinates = [
@@ -86,90 +74,161 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
     LatLng(49.452103, 11.076665),
   ];
 
-   void _onImageSelected(int index) {
+  void _onImageSelected(int index) {
     setState(() {
       _selectedIndex = index;
-      _showMap = !_showMap;
+      _showMap = true; // Show the map when an image is selected
     });
   }
 
-  Widget _buildMapContainer() {
-    return FlutterMap(
-      options: MapOptions(
-        center: _cityCoordinates[_selectedIndex],
-        zoom: 13.0,
-        interactiveFlags: InteractiveFlag.all,
+  void _onImageHovered(int index) {
+    setState(() {
+      _hoveredIndex = index;
+    });
+  }
+
+  void _onImageExited() {
+    setState(() {
+      _hoveredIndex = -1;
+    });
+  }
+
+  Widget _buildCityGrid() {
+    return GridView.builder(
+      itemCount: _imageUrls.length,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        mainAxisSpacing: 16.0,
+        crossAxisSpacing: 16.0,
+        childAspectRatio: 1.0,
       ),
-      layers: [
-        TileLayerOptions(
-          urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-          subdomains: ['a', 'b', 'c'],
-        ),
-        MarkerLayerOptions(
-          markers: [
-            Marker(
-              width: 80.0,
-              height: 80.0,
-              point: _cityCoordinates[_selectedIndex],
-              builder: (ctx) => Container(
-                child: Icon(
-                  Icons.location_on,
-                  color: Colors.red,
-                  size: 50,
+      padding: EdgeInsets.all(16.0),
+      itemBuilder: (BuildContext context, int index) {
+        return MouseRegion(
+          onEnter: (_) => _onImageHovered(index),
+          onExit: (_) => _onImageExited(),
+          child: GestureDetector(
+            onTap: () => _onImageSelected(index),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: _hoveredIndex == index ? Colors.blue : Colors.transparent,
+                      width: 2.0,
+                    ),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: Image.network(
+                      _imageUrls[index],
+                      fit: BoxFit.cover,
+                      height: double.infinity,
+                      width: double.infinity,
+                    ),
+                  ),
                 ),
-              ),
+                AnimatedOpacity(
+                  opacity: _hoveredIndex == index ? 0.6 : 0.0,
+                  duration: Duration(milliseconds: 300),
+                  child: Container(
+                    color: Colors.black,
+                    child: Center(
+                      child: Text(
+                        _imageNames[index],
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildCityInfo() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.network(
+          _imageUrls[_selectedIndex],
+          fit: BoxFit.cover,
+          height: 200.0,
+        ),
+        SizedBox(height: 16.0),
+        Text(
+          _imageNames[_selectedIndex],
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(height: 16.0),
+        Text(
+          "Latitude: ${_cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
+          style: TextStyle(fontSize: 16.0),
+        ),
+        SizedBox(height: 8.0),
+        Text(
+          "Longitude: ${_cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
+          style: TextStyle(fontSize: 16.0),
+        ),
+        SizedBox(height: 16.0),
+        ElevatedButton(
+          onPressed: () {
+            setState(() {
+              _showMap = false;
+            });
+          },
+          child: Text("Go back"),
         ),
       ],
     );
   }
 
-  Widget _buildCityInfo() {
-    return Container(
-      padding: EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          CircleAvatar(
-            radius: 100,
-            backgroundImage: NetworkImage(_imageUrls[_selectedIndex]),
+  Widget _buildMapContainer() {
+    return Scaffold(
+      body: InteractiveViewer(
+        child: FlutterMap(
+          options: MapOptions(
+            center: _cityCoordinates[_selectedIndex],
+            zoom: 13.0,
+            maxZoom: 18,
+            minZoom: 1
           ),
-          SizedBox(height: 16.0),
-          Text(
-            _imageNames[_selectedIndex],
-            style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
+          layers: [
+            TileLayerOptions(
+              urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+              subdomains: ['a', 'b', 'c'],
             ),
-          ),
-          SizedBox(height: 16.0),
-          Text(
-            "Some information about ${_imageNames[_selectedIndex]} goes here.",
-            style: TextStyle(fontSize: 16.0),
-            textAlign: TextAlign.center,
-          ),
-        ],
+            MarkerLayerOptions(
+              markers: [
+                Marker(
+                  width: 80.0,
+                  height: 80.0,
+                  point: _cityCoordinates[_selectedIndex],
+                  builder: (ctx) => Container(
+                    child: Icon(
+                      Icons.location_on,
+                      color: Colors.red,
+                      size: 50,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-    );
-  }
-
-  Widget _buildCityGrid() {
-    return GridView.count(
-      crossAxisCount: 4,
-      padding: EdgeInsets.all(16.0),
-      childAspectRatio: 1.0,
-      mainAxisSpacing: 16.0,
-      crossAxisSpacing: 16.0,
-      children: List.generate(_imageUrls.length, (index) {
-        return GestureDetector(
-          onTap: () => _onImageSelected(index),
-          child: CircleAvatar(
-            radius: 50,
-            backgroundImage: NetworkImage(_imageUrls[index]),
-          ),
-        );
-      }),
     );
   }
 
@@ -179,6 +238,7 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
       home: Scaffold(
         appBar: AppBar(
           title: Text("German Cities"),
+          
         ),
         body: _showMap
             ? _buildMapContainer()
@@ -188,8 +248,4 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
       ),
     );
   }
-}
-
-void main() {
-  runApp(GermanCitiesApp());
 }
