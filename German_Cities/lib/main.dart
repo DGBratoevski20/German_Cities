@@ -103,12 +103,12 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
     _mapController.move(_cityCoordinates[_selectedIndex], _mapController.zoom - 1);
   }
 
-  void _goBack() {
-    setState(() {
-      _showMap = false;
-      _selectedIndex = -1; // Reset the selected index
-    });
-  }
+void _goBack() {
+  setState(() {
+    _showMap = false;
+    _selectedIndex = -1; // Reset the selected index
+  });
+}
 
   Widget _buildCityGrid() {
     return GridView.builder(
@@ -292,6 +292,7 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
       debugShowCheckedModeBanner: false, // Remove the debug
       home: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           title: Text("German Cities"),
         ),
         body: _showMap
