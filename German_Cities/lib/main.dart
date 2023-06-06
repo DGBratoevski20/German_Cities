@@ -74,10 +74,12 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
     LatLng(49.452103, 11.076665),
   ];
 
+  MapController _mapController = MapController(); // Added MapController
+
   void _onImageSelected(int index) {
     setState(() {
       _selectedIndex = index;
-      _showMap = true; // Show the map when an image is selected
+      _showMap = true;
     });
   }
 
@@ -90,6 +92,21 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
   void _onImageExited() {
     setState(() {
       _hoveredIndex = -1;
+    });
+  }
+
+  void _zoomIn() {
+    _mapController.move(_cityCoordinates[_selectedIndex], _mapController.zoom + 1);
+  }
+
+  void _zoomOut() {
+    _mapController.move(_cityCoordinates[_selectedIndex], _mapController.zoom - 1);
+  }
+
+  void _goBack() {
+    setState(() {
+      _showMap = false;
+      _selectedIndex = -1; // Reset the selected index
     });
   }
 
@@ -187,6 +204,7 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
           onPressed: () {
             setState(() {
               _showMap = false;
+              _selectedIndex = -1; // Reset the selected index
             });
           },
           child: Text("Go back"),
@@ -195,39 +213,75 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
     );
   }
 
-  Widget _buildMapContainer() {
-    return Scaffold(
-      body: InteractiveViewer(
-        child: FlutterMap(
-          options: MapOptions(
-            center: _cityCoordinates[_selectedIndex],
-            zoom: 13.0,
-            maxZoom: 18,
-            minZoom: 1
+ Widget _buildMapContainer() {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("${_imageNames[_selectedIndex]} Map"),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            setState(() {
+              _showMap = false;
+              _selectedIndex = -1; // Reset the selected index
+            });
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.info),
+            onPressed: () {
+              setState(() {
+                _showMap = false;
+              });
+            },
           ),
-          layers: [
-            TileLayerOptions(
-              urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              subdomains: ['a', 'b', 'c'],
-            ),
-            MarkerLayerOptions(
-              markers: [
-                Marker(
-                  width: 80.0,
-                  height: 80.0,
-                  point: _cityCoordinates[_selectedIndex],
-                  builder: (ctx) => Container(
-                    child: Icon(
-                      Icons.location_on,
-                      color: Colors.red,
-                      size: 50,
-                    ),
+        ],
+      ),
+      body: FlutterMap(
+        mapController: _mapController,
+        options: MapOptions(
+          center: _cityCoordinates[_selectedIndex],
+          zoom: 13.0,
+          maxZoom: 18,
+          minZoom: 1,
+        ),
+        layers: [
+          TileLayerOptions(
+            urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            subdomains: ['a', 'b', 'c'],
+          ),
+          MarkerLayerOptions(
+            markers: [
+              Marker(
+                width: 80.0,
+                height: 80.0,
+                point: _cityCoordinates[_selectedIndex],
+                builder: (ctx) => Container(
+                  child: Icon(
+                    Icons.location_on,
+                    color: Colors.red,
+                    size: 50,
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: _zoomIn,
+            child: Icon(Icons.add),
+          ),
+          SizedBox(height: 8.0),
+          FloatingActionButton(
+            onPressed: _zoomOut,
+            child: Icon(Icons.remove),
+          ),
+        ],
       ),
     );
   }
@@ -235,10 +289,10 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false, // Remove the debug
       home: Scaffold(
         appBar: AppBar(
           title: Text("German Cities"),
-          
         ),
         body: _showMap
             ? _buildMapContainer()
