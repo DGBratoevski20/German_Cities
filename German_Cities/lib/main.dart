@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 
 void main() {
@@ -7,17 +8,9 @@ void main() {
 }
 
 class GermanCitiesApp extends StatefulWidget {
-  @override
-  _GermanCitiesAppState createState() => _GermanCitiesAppState();
-}
+  GermanCitiesApp({super.key});
 
-class _GermanCitiesAppState extends State<GermanCitiesApp> {
-  int _selectedIndex = -1;
-  bool _showMap = false;
-  
-  int _hoveredIndex = -1;
-
-   final List<String> _imageUrls = [
+  final List<String> _imageUrls = [
     "https://media.cntraveler.com/photos/5b914e80d5806340ca438db1/1:1/w_2250,h_2250,c_limit/BrandenburgGate_2018_GettyImages-549093677.jpg7",
     "https://a.cdn-hotels.com/gdcs/production19/d1430/c53e41bd-1e9b-4c80-b15b-01e81b1c4679.jpg?impolicy=fcrop&w=800&h=533&q=medium",
     "https://cdn.britannica.com/06/152206-050-72BD5CAC/twin-towers-Church-of-Our-Lady-Munich.jpg",
@@ -74,7 +67,23 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
     LatLng(49.452103, 11.076665),
   ];
 
+  @override
+  _GermanCitiesAppState createState() => _GermanCitiesAppState();
+}
+
+class _GermanCitiesAppState extends State<GermanCitiesApp> {
+  int _selectedIndex = -1;
+  bool _showMap = false;
+
+  int _hoveredIndex = -1;
+
   MapController _mapController = MapController(); // Added MapController
+
+  @override
+  void dispose() {
+    super.dispose();
+    _mapController.dispose();
+  }
 
   void _onImageSelected(int index) {
     setState(() {
@@ -96,23 +105,25 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
   }
 
   void _zoomIn() {
-    _mapController.move(_cityCoordinates[_selectedIndex], _mapController.zoom + 1);
+    _mapController.move(
+        widget._cityCoordinates[_selectedIndex], _mapController.zoom + 1);
   }
 
   void _zoomOut() {
-    _mapController.move(_cityCoordinates[_selectedIndex], _mapController.zoom - 1);
+    _mapController.move(
+        widget._cityCoordinates[_selectedIndex], _mapController.zoom - 1);
   }
 
-void _goBack() {
-  setState(() {
-    _showMap = false;
-    _selectedIndex = -1; // Reset the selected index
-  });
-}
+  void _goBack() {
+    setState(() {
+      _showMap = false;
+      _selectedIndex = -1; // Reset the selected index
+    });
+  }
 
   Widget _buildCityGrid() {
     return GridView.builder(
-      itemCount: _imageUrls.length,
+      itemCount: widget._imageUrls.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
         mainAxisSpacing: 16.0,
@@ -133,14 +144,16 @@ void _goBack() {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
                     border: Border.all(
-                      color: _hoveredIndex == index ? Colors.blue : Colors.transparent,
+                      color: _hoveredIndex == index
+                          ? Colors.blue
+                          : Colors.transparent,
                       width: 2.0,
                     ),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Image.network(
-                      _imageUrls[index],
+                      widget._imageUrls[index],
                       fit: BoxFit.cover,
                       height: double.infinity,
                       width: double.infinity,
@@ -149,13 +162,13 @@ void _goBack() {
                 ),
                 AnimatedOpacity(
                   opacity: _hoveredIndex == index ? 0.6 : 0.0,
-                  duration: Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 300),
                   child: Container(
                     color: Colors.black,
                     child: Center(
                       child: Text(
-                        _imageNames[index],
-                        style: TextStyle(
+                        widget._imageNames[index],
+                        style: const TextStyle(
                           fontSize: 16.0,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -177,29 +190,29 @@ void _goBack() {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
-          _imageUrls[_selectedIndex],
+          widget._imageUrls[_selectedIndex],
           fit: BoxFit.cover,
           height: 200.0,
         ),
-        SizedBox(height: 16.0),
+        const SizedBox(height: 16.0),
         Text(
-          _imageNames[_selectedIndex],
-          style: TextStyle(
+          widget._imageNames[_selectedIndex],
+          style: const TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
           ),
         ),
-        SizedBox(height: 16.0),
+        const SizedBox(height: 16.0),
         Text(
-          "Latitude: ${_cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
-          style: TextStyle(fontSize: 16.0),
+          "Latitude: ${widget._cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
+          style: const TextStyle(fontSize: 16.0),
         ),
-        SizedBox(height: 8.0),
+        const SizedBox(height: 8.0),
         Text(
-          "Longitude: ${_cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
-          style: TextStyle(fontSize: 16.0),
+          "Longitude: ${widget._cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
+          style: const TextStyle(fontSize: 16.0),
         ),
-        SizedBox(height: 16.0),
+        const SizedBox(height: 16.0),
         ElevatedButton(
           onPressed: () {
             setState(() {
@@ -207,18 +220,18 @@ void _goBack() {
               _selectedIndex = -1; // Reset the selected index
             });
           },
-          child: Text("Go back"),
+          child: const Text("Go back"),
         ),
       ],
     );
   }
 
- Widget _buildMapContainer() {
-  return Scaffold(
-    appBar: AppBar(
-      title: Text("${_imageNames[_selectedIndex]} Map"),
+  Widget _buildMapContainer() {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("${widget._imageNames[_selectedIndex]} Map"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             setState(() {
               _showMap = false;
@@ -228,7 +241,7 @@ void _goBack() {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.info),
+            icon: const Icon(Icons.info),
             onPressed: () {
               setState(() {
                 _showMap = false;
@@ -240,28 +253,27 @@ void _goBack() {
       body: FlutterMap(
         mapController: _mapController,
         options: MapOptions(
-          center: _cityCoordinates[_selectedIndex],
+          center: widget._cityCoordinates[_selectedIndex],
           zoom: 13.0,
           maxZoom: 18,
           minZoom: 1,
         ),
-        layers: [
-          TileLayerOptions(
+
+        children: [
+          TileLayer(
             urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
             subdomains: ['a', 'b', 'c'],
           ),
-          MarkerLayerOptions(
+          MarkerLayer(
             markers: [
               Marker(
                 width: 80.0,
                 height: 80.0,
-                point: _cityCoordinates[_selectedIndex],
-                builder: (ctx) => Container(
-                  child: Icon(
-                    Icons.location_on,
-                    color: Colors.red,
-                    size: 50,
-                  ),
+                point: widget._cityCoordinates[_selectedIndex],
+                builder: (ctx) => const Icon(
+                  Icons.location_on,
+                  color: Colors.red,
+                  size: 50,
                 ),
               ),
             ],
@@ -274,12 +286,12 @@ void _goBack() {
         children: [
           FloatingActionButton(
             onPressed: _zoomIn,
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
-          SizedBox(height: 8.0),
+          const SizedBox(height: 8.0),
           FloatingActionButton(
             onPressed: _zoomOut,
-            child: Icon(Icons.remove),
+            child: const Icon(Icons.remove),
           ),
         ],
       ),
@@ -293,7 +305,7 @@ void _goBack() {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text("German Cities"),
+          title: const Text("German Cities"),
         ),
         body: _showMap
             ? _buildMapContainer()
