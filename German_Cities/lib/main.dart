@@ -44,27 +44,27 @@ class GermanCitiesApp extends StatefulWidget {
     "Dresden",
     "Hanover",
     "Nuremberg",
-    "Dresden",
-    "Hanover",
+    "",
+    "",
   ];
 
   final List<LatLng> _cityCoordinates = [
-    LatLng(52.520008, 13.404954),
-    LatLng(53.551086, 9.993682),
-    LatLng(48.135125, 11.581981),
-    LatLng(50.937531, 6.960279),
-    LatLng(50.110924, 8.682127),
-    LatLng(48.775418, 9.181758),
-    LatLng(51.227741, 6.773456),
-    LatLng(51.513587, 7.465298),
-    LatLng(51.458223, 7.015817),
-    LatLng(51.340632, 12.374732),
-    LatLng(53.079296, 8.801694),
-    LatLng(51.050407, 13.737262),
-    LatLng(52.375891, 9.732010),
-    LatLng(49.452103, 11.076665),
-    LatLng(52.375891, 9.732010),
-    LatLng(49.452103, 11.076665),
+    const LatLng(52.514629, 13.38923),
+    const LatLng(53.54043, 9.9778286),
+    const LatLng(48.135125, 11.581981),
+    const LatLng(50.937531, 6.960279),
+    const LatLng(50.110924, 8.682127),
+    const LatLng(48.775418, 9.181758),
+    const LatLng(51.227741, 6.773456),
+    const LatLng(51.513587, 7.465298),
+    const LatLng(51.458223, 7.015817),
+    const LatLng(51.340632, 12.374732),
+    const LatLng(53.079296, 8.801694),
+    const LatLng(51.050407, 13.737262),
+    const LatLng(52.375891, 9.732010),
+    const LatLng(49.452103, 11.076665),
+    const LatLng(0, 0),
+    const LatLng(0, 0),
   ];
 
   @override
@@ -73,9 +73,12 @@ class GermanCitiesApp extends StatefulWidget {
 
 class _GermanCitiesAppState extends State<GermanCitiesApp> {
   int _selectedIndex = -1;
+  int _hoveredIndex = -1;
+
   bool _showMap = false;
 
-  int _hoveredIndex = -1;
+  final customGray = const Color.fromARGB(255, 65, 65, 65);
+  final customYellow = const Color.fromARGB(255, 206, 192, 3);
 
   MapController _mapController = MapController(); // Added MapController
 
@@ -114,25 +117,18 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
         widget._cityCoordinates[_selectedIndex], _mapController.zoom - 1);
   }
 
-  void _goBack() {
-    setState(() {
-      _showMap = false;
-      _selectedIndex = -1; // Reset the selected index
-    });
-  }
-
   Widget _buildCityGrid() {
   return Container(
-    color: const Color.fromARGB(255, 65, 65, 65), // Set the background color here
+    color: customGray, // Set the background color here
     child: GridView.builder(
       itemCount: widget._imageUrls.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
         mainAxisSpacing: 16.0,
         crossAxisSpacing: 16.0,
         childAspectRatio: 1.0,
       ),
-      padding: EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
       itemBuilder: (BuildContext context, int index) {
         return MouseRegion(
           onEnter: (_) => _onImageHovered(index),
@@ -147,7 +143,7 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
                     borderRadius: BorderRadius.circular(10.0),
                     border: Border.all(
                       color: _hoveredIndex == index
-                          ? const Color.fromARGB(255, 206, 192, 3)
+                          ? customYellow
                           : Colors.transparent,
                       width: 5.0,
                     ),
@@ -171,8 +167,9 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
                       child: Text(
                         widget._imageNames[index],
                         style: const TextStyle(
-                          fontSize: 16.0,
+                          fontSize: 40.0,
                           fontWeight: FontWeight.bold,
+                          fontFamily: 'Times New Roman',
                           color: Colors.white,
                         ),
                       ),
@@ -189,66 +186,96 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
 }
 
   Widget _buildCityInfo() {
-  return Container(
-    color: const Color.fromARGB(255, 65, 65, 65), // Set the background color here
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.network(
-          widget._imageUrls[_selectedIndex],
-          fit: BoxFit.cover,
-          height: 200.0,
-        ),
-        const SizedBox(height: 16.0),
-        Text(
-          widget._imageNames[_selectedIndex],
-          style: const TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 16.0),
-        Text(
-          "Latitude: ${widget._cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
-          style: const TextStyle(fontSize: 16.0),
-        ),
-        const SizedBox(height: 8.0),
-        Text(
-          "Longitude: ${widget._cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
-          style: const TextStyle(fontSize: 16.0),
-        ),
-        const SizedBox(height: 16.0),
-        ElevatedButton(
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("${widget._imageNames[_selectedIndex]} Info"),
+      centerTitle: true,
+      backgroundColor: customYellow,
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back, size: 30),
+        onPressed: () {
+          setState(() {
+            _showMap = false;
+            _selectedIndex = -1; // Reset the selected index
+          });
+        },
+      ),
+      actions: [
+        IconButton(
+          icon: const Icon(Icons.map, size: 30.0),
+          padding: const EdgeInsets.only(right: 10.0),
           onPressed: () {
             setState(() {
-              _showMap = false;
-              _selectedIndex = -1; // Reset the selected index
+              _showMap = true;
             });
           },
-          child: const Text("Go back"),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.black, // Set the button color here
-            shadowColor: const Color.fromARGB(255, 206, 192, 3),
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(7.5),
-              ),
-            ),
-          ),
         ),
       ],
     ),
+    body: Container(
+      color: customGray, // Set the background color here
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.network(
+            widget._imageUrls[_selectedIndex],
+            fit: BoxFit.cover,
+            height: 200.0,
+          ),
+          const SizedBox(height: 16.0),
+          Text(
+            widget._imageNames[_selectedIndex],
+            style: const TextStyle(
+              fontSize: 30.0,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Times New Roman',
+            ),
+          ),
+          const SizedBox(height: 16.0),
+          Text(
+            "Latitude: ${widget._cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
+            style: const TextStyle(fontSize: 16.0),
+          ),
+          const SizedBox(height: 8.0),
+          Text(
+            "Longitude: ${widget._cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
+            style: const TextStyle(fontSize: 16.0),
+          ),
+          const SizedBox(height: 16.0),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                _showMap = false;
+                _selectedIndex = -1; // Reset the selected index
+              });
+            },
+            child: const Text("Go back"),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.black, // Set the button color here
+              shadowColor: customYellow,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(7.5),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
   );
 }
+
 
 
   Widget _buildMapContainer() {
     return Scaffold(
       appBar: AppBar(
         title: Text("${widget._imageNames[_selectedIndex]} Map"),
-        backgroundColor: Color.fromARGB(255, 206, 192, 3),
+        centerTitle: true,
+        backgroundColor: customYellow,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, size: 30),
           onPressed: () {
             setState(() {
               _showMap = false;
@@ -258,7 +285,8 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.info),
+            icon: const Icon(Icons.info,  size: 30),
+            padding: const EdgeInsets.only(right: 16.0),
             onPressed: () {
               setState(() {
                 _showMap = false;
@@ -279,7 +307,7 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
         children: [
           TileLayer(
             urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-            subdomains: ['a', 'b', 'c'],
+            subdomains: const ['a', 'b', 'c'],
           ),
           MarkerLayer(
             markers: [
@@ -325,8 +353,8 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: const Color.fromARGB(255, 0, 1, 2),
-          shadowColor: const Color.fromARGB(255, 206, 192, 3),
+          backgroundColor: Colors.black,
+          shadowColor: customYellow,
           title: const Text("German Cities"),
         ),
         body: _showMap
