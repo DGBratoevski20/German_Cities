@@ -36,7 +36,7 @@ class GermanCitiesApp extends StatefulWidget {
     "Cologne",
     "Frankfurt",
     "Stuttgart",
-    "Düsseldorf",
+    "DÃsseldorf",
     "Dortmund",
     "Essen",
     "Leipzig",
@@ -122,7 +122,9 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
   }
 
   Widget _buildCityGrid() {
-    return GridView.builder(
+  return Container(
+    color: const Color.fromARGB(255, 65, 65, 65), // Set the background color here
+    child: GridView.builder(
       itemCount: widget._imageUrls.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 4,
@@ -145,9 +147,9 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
                     borderRadius: BorderRadius.circular(10.0),
                     border: Border.all(
                       color: _hoveredIndex == index
-                          ? Colors.blue
+                          ? const Color.fromARGB(255, 206, 192, 3)
                           : Colors.transparent,
-                      width: 2.0,
+                      width: 5.0,
                     ),
                   ),
                   child: ClipRRect(
@@ -182,11 +184,14 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
           ),
         );
       },
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildCityInfo() {
-    return Column(
+  return Container(
+    color: const Color.fromARGB(255, 65, 65, 65), // Set the background color here
+    child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Image.network(
@@ -221,15 +226,27 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
             });
           },
           child: const Text("Go back"),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.black, // Set the button color here
+            shadowColor: const Color.fromARGB(255, 206, 192, 3),
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(7.5),
+              ),
+            ),
+          ),
         ),
       ],
-    );
-  }
+    ),
+  );
+}
+
 
   Widget _buildMapContainer() {
     return Scaffold(
       appBar: AppBar(
         title: Text("${widget._imageNames[_selectedIndex]} Map"),
+        backgroundColor: Color.fromARGB(255, 206, 192, 3),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -272,7 +289,8 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
                 point: widget._cityCoordinates[_selectedIndex],
                 builder: (ctx) => const Icon(
                   Icons.location_on,
-                  color: Colors.red,
+                  color: Color.fromARGB(255, 54, 54, 54),
+                  shadows: [Shadow(color: Colors.black, offset:Offset(2, 2), blurRadius: 15)],
                   size: 50,
                 ),
               ),
@@ -285,11 +303,13 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           FloatingActionButton(
+            backgroundColor: Colors.black,
             onPressed: _zoomIn,
             child: const Icon(Icons.add),
           ),
           const SizedBox(height: 8.0),
           FloatingActionButton(
+            backgroundColor: Colors.black,
             onPressed: _zoomOut,
             child: const Icon(Icons.remove),
           ),
@@ -305,6 +325,8 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
+          backgroundColor: const Color.fromARGB(255, 0, 1, 2),
+          shadowColor: const Color.fromARGB(255, 206, 192, 3),
           title: const Text("German Cities"),
         ),
         body: _showMap
