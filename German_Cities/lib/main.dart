@@ -185,7 +185,7 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
   );
 }
 
-  Widget _buildCityInfo() {
+ Widget _buildCityInfo() {
   return Scaffold(
     appBar: AppBar(
       title: Text("${widget._imageNames[_selectedIndex]} Info"),
@@ -213,60 +213,81 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
       ],
     ),
     body: Container(
-      color: customGray, // Set the background color here
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.network(
-            widget._imageUrls[_selectedIndex],
-            fit: BoxFit.cover,
-            height: 200.0,
-          ),
-          const SizedBox(height: 16.0),
-          Text(
-            widget._imageNames[_selectedIndex],
-            style: const TextStyle(
-              fontSize: 30.0,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Times New Roman',
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          Text(
-            "Latitude: ${widget._cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
-            style: const TextStyle(fontSize: 16.0),
-          ),
-          const SizedBox(height: 8.0),
-          Text(
-            "Longitude: ${widget._cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
-            style: const TextStyle(fontSize: 16.0),
-          ),
-          const SizedBox(height: 16.0),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                _showMap = false;
-                _selectedIndex = -1; // Reset the selected index
-              });
-            },
-            child: const Text("Go back"),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.black, // Set the button color here
-              shadowColor: customYellow,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(7.5),
-                ),
+      color: customGray, //
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: customYellow,
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 5,
+                    blurRadius: 7,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                   const SizedBox(height: 10),
+                  Text(
+                    widget._imageNames[_selectedIndex],
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'Times New Roman',
+                    ),
+                  ),
+                   const SizedBox(height: 10),
+                  Image.network(
+                    widget._imageUrls[_selectedIndex],
+                    fit: BoxFit.cover,
+                    height: 700,
+                    width: 1050
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    "Latitude: ${widget._cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 5),
+                  Text(
+                    "Longitude: ${widget._cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _showMap = false;
+                        _selectedIndex = -1; // Reset the selected index
+                      });
+                    },
+                    child: const Text("Go back"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.black,
+                      shadowColor: customYellow,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(7.5),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        ],
+        ),
       ),
     ),
   );
 }
-
-
 
   Widget _buildMapContainer() {
     return Scaffold(
