@@ -367,16 +367,65 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
     );
   }
 
-  @override
+  Widget _infoPage(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text('Info Page'),
+    ),
+    body: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Settings',
+            style: TextStyle(
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          ListTile(
+            title: const Text('Music'),
+            trailing: Switch(
+              value: true,
+              onChanged: (value) {},
+            ),
+          ),
+          // Add more settings options here
+        ],
+      ),
+    ),
+  );
+}
+
+
+
+ @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Remove the debug
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.black,
           shadowColor: customYellow,
-          title: const Text("German Cities"),
+          title: const Text(
+            "German Cities",
+            style: TextStyle(
+              fontFamily: 'Times New Roman',
+              fontSize: 24.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => _infoPage(context)),
+              );
+            },
+          ),
         ),
         body: _showMap
             ? _buildMapContainer()
