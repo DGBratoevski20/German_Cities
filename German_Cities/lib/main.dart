@@ -76,6 +76,7 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
   int _hoveredIndex = -1;
 
   bool _showMap = false;
+  bool isMusicEnabled = true;
 
   final customGray = const Color.fromARGB(255, 65, 65, 65);
   final customYellow = const Color.fromARGB(255, 206, 192, 3);
@@ -367,44 +368,121 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
     );
   }
 
-  Widget _infoPage(BuildContext context) {
+  Widget _settingsPage(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
-      title: Text('Info Page'),
+      title: const Text(
+        'Settings',
+        style: TextStyle(
+          fontFamily: 'Times New Roman',
+          fontSize: 24.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      centerTitle: true,
+      backgroundColor: Colors.black,
+      shadowColor: customYellow,
     ),
+    backgroundColor: customGray,
     body: Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Settings',
-            style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.bold,
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                isMusicEnabled = !isMusicEnabled; // Toggle music option
+              });
+            },
+            child: Container(
+              color: customYellow,
+              child: ListTile(
+                title: const Text(
+                  'Music',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                trailing: Switch(
+                  value: isMusicEnabled,
+                  onChanged: (value) {
+                    setState(() {
+                      isMusicEnabled = value; // Update music option
+                    });
+                  },
+                  activeColor: Colors.black, // Color when music is enabled
+                  activeTrackColor: customGray,
+                  inactiveTrackColor: customGray, 
+                  inactiveThumbColor: Colors.black,
+                ),
+              ),
             ),
           ),
-          ListTile(
-            title: const Text('Music'),
-            trailing: Switch(
-              value: true,
-              onChanged: (value) {},
+          const SizedBox(height: 100),
+          Container(
+            color: customYellow,
+            child: ListTile(
+              title: const Text(
+                'Theme Settings',
+                style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                // Navigate to theme settings page
+              },
             ),
           ),
-          // Add more settings options here
+          const SizedBox(height: 100),
+          Container(
+            color: customYellow,
+            child: ListTile(
+              title: const Text(
+                'Language',
+                style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                // Navigate to language settings page
+              },
+            ),
+          ),
+          const SizedBox(height: 100),
+          Container(
+            color: customYellow,
+            child: ListTile(
+              title: const Text(
+                'Location Settings',
+                style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              trailing: const Icon(Icons.arrow_forward_ios),
+              onTap: () {
+                // Navigate to location settings page
+              },
+            ),
+          ),
         ],
       ),
     ),
   );
-}
+} 
 
-
-
- @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
+@override
+Widget build(BuildContext context) {
+  return MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: Builder(
+      builder: (context) => Scaffold(
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.black,
@@ -422,7 +500,7 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => _infoPage(context)),
+                MaterialPageRoute(builder: (context) => _settingsPage(context)),
               );
             },
           ),
@@ -433,6 +511,8 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
                 ? _buildCityInfo()
                 : _buildCityGrid(),
       ),
-    );
-  }
+    ),
+  );
+}
+
 }
