@@ -76,7 +76,11 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
   int _hoveredIndex = -1;
 
   bool _showMap = false;
-  bool isMusicEnabled = true;
+  bool isMusicEnabled = false;
+  bool isDarkModeEnabled = false;
+  bool isLocationEnabled = false;
+
+  String selectedLanguage = 'English';
 
   final customGray = const Color.fromARGB(255, 65, 65, 65);
   final customYellow = const Color.fromARGB(255, 206, 192, 3);
@@ -368,7 +372,7 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
     );
   }
 
-  Widget _settingsPage(BuildContext context) {
+Widget _settingsPage(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
       title: const Text(
@@ -414,68 +418,209 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
                   },
                   activeColor: Colors.black, // Color when music is enabled
                   activeTrackColor: customGray,
-                  inactiveTrackColor: customGray, 
+                  inactiveTrackColor: customGray,
                   inactiveThumbColor: Colors.black,
                 ),
               ),
             ),
           ),
           const SizedBox(height: 100),
-          Container(
-            color: customYellow,
-            child: ListTile(
-              title: const Text(
-                'Theme Settings',
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
+          GestureDetector(
+            onTap: () {
+              _showThemeDialog(context); // Show theme settings dialog
+            },
+            child: Container(
+              color: customYellow,
+              child: ListTile(
+                title: const Text(
+                  'Theme Settings',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                trailing: Icon(
+                  isDarkModeEnabled ? Icons.brightness_2 : Icons.brightness_5,
+                  color: Colors.black,
                 ),
               ),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                // Navigate to theme settings page
-              },
             ),
           ),
           const SizedBox(height: 100),
-          Container(
-            color: customYellow,
-            child: ListTile(
-              title: const Text(
-                'Language',
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
+          GestureDetector(
+            onTap: () {
+              _showLanguageDialog(context); // Show language settings dialog
+            },
+            child: Container(
+              color: customYellow,
+              child: const ListTile(
+                title: Text(
+                  'Language',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                trailing: const Icon(Icons.arrow_forward_ios),
               ),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                // Navigate to language settings page
-              },
             ),
           ),
           const SizedBox(height: 100),
-          Container(
-            color: customYellow,
-            child: ListTile(
-              title: const Text(
-                'Location Settings',
-                style: TextStyle(
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
+          GestureDetector(
+            onTap: () {
+              _showLocationDialog(context); // Show location settings dialog
+            },
+            child: Container(
+              color: customYellow,
+              child: const ListTile(
+                title: Text(
+                  'Location Settings',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
+                trailing: const Icon(Icons.arrow_forward_ios),
               ),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {
-                // Navigate to location settings page
-              },
             ),
           ),
         ],
       ),
     ),
   );
-} 
+}
+
+void _showThemeDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text(
+          'Theme Settings',
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: Icon(Icons.brightness_5),
+              title: const Text('Light Mode'),
+              onTap: () {
+                setState(() {
+                  isDarkModeEnabled = false; // Switch to light mode
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.brightness_2),
+              title: const Text('Dark Mode'),
+              onTap: () {
+                setState(() {
+                  isDarkModeEnabled = true; // Switch to dark mode
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+void _showLanguageDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text(
+          'Language Settings',
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.language),
+              title: const Text('English'),
+              onTap: () {
+                setState(() {
+                  selectedLanguage = 'English';
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.language),
+              title: const Text('German'),
+              onTap: () {
+                setState(() {
+                  selectedLanguage = 'German';
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.language),
+              title: const Text('Bulgarian'),
+              onTap: () {
+                setState(() {
+                  selectedLanguage = 'Bulgarian';
+                });
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
+void _showLocationDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text(
+          'Location Settings',
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: Icon(Icons.location_on),
+              title: const Text('Show Your Location'),
+              trailing: Switch(
+                value: isLocationEnabled,
+                onChanged: (value) {
+                  setState(() {
+                    isLocationEnabled = value;
+                  });
+                },
+                activeColor: Colors.black,
+                activeTrackColor: customGray,
+                inactiveTrackColor: customGray,
+                inactiveThumbColor: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
 
 @override
 Widget build(BuildContext context) {
