@@ -495,19 +495,27 @@ void _showThemeDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
+        backgroundColor: customGray,
         title: const Text(
           'Theme Settings',
           style: TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 206, 192, 3), // Set text color to customYellow
           ),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             ListTile(
-              leading: Icon(Icons.brightness_5),
-              title: const Text('Light Mode'),
+              leading: const Icon(
+                Icons.brightness_5,
+                color: Color.fromARGB(255, 206, 192, 3), // Set icon color to customYellow
+              ),
+              title: const Text(
+                'Light Mode',
+                style: TextStyle(color: Color.fromARGB(255, 206, 192, 3)), // Set text color to customYellow
+              ),
               onTap: () {
                 setState(() {
                   isDarkModeEnabled = false; // Switch to light mode
@@ -516,8 +524,14 @@ void _showThemeDialog(BuildContext context) {
               },
             ),
             ListTile(
-              leading: Icon(Icons.brightness_2),
-              title: const Text('Dark Mode'),
+              leading: const Icon(
+                Icons.brightness_2,
+                color: Color.fromARGB(255, 206, 192, 3), // Set icon color to customYellow
+              ),
+              title: const Text(
+                'Dark Mode',
+                style: TextStyle(color: Color.fromARGB(255, 206, 192, 3)), // Set text color to customYellow
+              ),
               onTap: () {
                 setState(() {
                   isDarkModeEnabled = true; // Switch to dark mode
@@ -536,91 +550,143 @@ void _showLanguageDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text(
-          'Language Settings',
-          style: TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-          ),
+      return Dialog(
+        backgroundColor: customGray,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
         ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: const Icon(Icons.language),
-              title: const Text('English'),
-              onTap: () {
-                setState(() {
-                  selectedLanguage = 'English';
-                });
-                Navigator.of(context).pop();
-              },
+        child: FractionallySizedBox(
+          widthFactor: 0.14,
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Language Settings',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 206, 192, 3),
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                ListTile(
+                  leading: const Icon(
+                    Icons.language,
+                    color: Color.fromARGB(255, 206, 192, 3),
+                  ),
+                  title: const Text('English', style:TextStyle(
+                    color: Color.fromARGB(255, 206, 192, 3)
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      selectedLanguage = 'English';
+                    });
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.language,
+                    color: Color.fromARGB(255, 206, 192, 3),
+                  ),
+                  title: const Text('German', style:TextStyle(
+                    color: Color.fromARGB(255, 206, 192, 3)
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      selectedLanguage = 'German';
+                    });
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.language,
+                    color: Color.fromARGB(255, 206, 192, 3),
+                  ),
+                  title: const Text('Bulgarian', style:TextStyle(
+                    color: Color.fromARGB(255, 206, 192, 3)
+                    ),
+                  ),
+                  onTap: () {
+                    setState(() {
+                      selectedLanguage = 'Bulgarian';
+                    });
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
             ),
-            ListTile(
-              leading: const Icon(Icons.language),
-              title: const Text('German'),
-              onTap: () {
-                setState(() {
-                  selectedLanguage = 'German';
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.language),
-              title: const Text('Bulgarian'),
-              onTap: () {
-                setState(() {
-                  selectedLanguage = 'Bulgarian';
-                });
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+          ),
         ),
       );
     },
   );
 }
 
+
 void _showLocationDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text(
-          'Location Settings',
-          style: TextStyle(
-            fontSize: 24.0,
-            fontWeight: FontWeight.bold,
-          ),
+      return Dialog(
+        backgroundColor: customGray, // Set the background color to customGray
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
         ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ListTile(
-              leading: Icon(Icons.location_on),
-              title: const Text('Show Your Location'),
-              trailing: Switch(
-                value: isLocationEnabled,
-                onChanged: (value) {
-                  setState(() {
-                    isLocationEnabled = value;
-                  });
-                },
-                activeColor: Colors.black,
-                activeTrackColor: customGray,
-                inactiveTrackColor: customGray,
-                inactiveThumbColor: Colors.black,
-              ),
+        child: FractionallySizedBox(
+          widthFactor: 0.2, // Set the desired width factor here
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text(
+                  'Location Settings',
+                  style: TextStyle(
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 206, 192, 3), // Set the text color to customYellow
+                  ),
+                ),
+                const SizedBox(height: 16.0),
+                ListTile(
+                  leading: const Icon(
+                    Icons.location_on,
+                    color: Color.fromARGB(255, 206, 192, 3), // Set the icon color to customYellow
+                  ),
+                  title: const Text(
+                    'Show Your Location',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 206, 192, 3), // Set the text color to customYellow
+                    ),
+                  ),
+                  trailing: Switch(
+                    value: isLocationEnabled,
+                    onChanged: (value) {
+                      setState(() {
+                        isLocationEnabled = value;
+                      });
+                    },
+                    activeColor: Colors.black,
+                    activeTrackColor: customYellow,
+                    inactiveTrackColor: customYellow,
+                    inactiveThumbColor: Colors.black,
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       );
     },
   );
 }
+
 
 @override
 Widget build(BuildContext context) {
