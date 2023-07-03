@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 void main() {
   runApp(GermanCitiesApp());
@@ -363,73 +365,116 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
         widget._cityCoordinates[_selectedIndex], _mapController.zoom - 1);
   }
 
-  Widget _buildCityGrid() {
+Widget _buildCityGrid() {
   return Container(
     color: customGray, // Set the background color here
-    child: GridView.builder(
-      itemCount: widget._imageUrls.length,
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 4,
-        mainAxisSpacing: 16.0,
-        crossAxisSpacing: 16.0,
-        childAspectRatio: 1.0,
-      ),
-      padding: const EdgeInsets.all(16.0),
-      itemBuilder: (BuildContext context, int index) {
-        return MouseRegion(
-          onEnter: (_) => _onImageHovered(index),
-          onExit: (_) => _onImageExited(),
-          child: GestureDetector(
-            onTap: () => _onImageSelected(index),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    border: Border.all(
-                      color: _hoveredIndex == index
-                          ? customYellow
-                          : Colors.transparent,
-                      width: 5.0,
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10.0),
-                    child: Image.network(
-                      widget._imageUrls[index],
-                      fit: BoxFit.cover,
-                      height: double.infinity,
-                      width: double.infinity,
-                    ),
-                  ),
-                ),
-                AnimatedOpacity(
-                  opacity: _hoveredIndex == index ? 0.6 : 0.0,
-                  duration: const Duration(milliseconds: 300),
-                  child: Container(
-                    color: Colors.black,
-                    child: Center(
-                      child: Text(
-                        widget._imageNames[index],
-                        style: const TextStyle(
-                          fontSize: 40.0,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Times New Roman',
-                          color: Colors.white,
+    child: Column(
+      children: [
+        Expanded(
+          child: GridView.builder(
+            itemCount: widget._imageUrls.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 4,
+              mainAxisSpacing: 16.0,
+              crossAxisSpacing: 16.0,
+              childAspectRatio: 1.0,
+            ),
+            padding: const EdgeInsets.all(16.0),
+            itemBuilder: (BuildContext context, int index) {
+              return MouseRegion(
+                onEnter: (_) => _onImageHovered(index),
+                onExit: (_) => _onImageExited(),
+                child: GestureDetector(
+                  onTap: () => _onImageSelected(index),
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          border: Border.all(
+                            color: _hoveredIndex == index
+                                ? customYellow
+                                : Colors.transparent,
+                            width: 5.0,
+                          ),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(10.0),
+                          child: Image.network(
+                            widget._imageUrls[index],
+                            fit: BoxFit.cover,
+                            height: double.infinity,
+                            width: double.infinity,
+                          ),
                         ),
                       ),
-                    ),
+                      AnimatedOpacity(
+                        opacity: _hoveredIndex == index ? 0.6 : 0.0,
+                        duration: const Duration(milliseconds: 300),
+                        child: Container(
+                          color: Colors.black,
+                          child: Center(
+                            child: Text(
+                              widget._imageNames[index],
+                              style: const TextStyle(
+                                fontSize: 40.0,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Times New Roman',
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
+                ),
+              );
+            },
+          ),
+        ),
+        Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                color: Colors.black,
+                width: 4.0,
+              ),
+            ),
+          ),
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            color: customGray, // Set the footer background color here
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const FaIcon(FontAwesomeIcons.instagram, color:Color.fromARGB(255, 206, 192, 3)),
+                  onPressed: () {
+                    // Handle Instagram button tap
+                  },
+                ),
+                IconButton(
+                  icon: const FaIcon(FontAwesomeIcons.facebook, color:Color.fromARGB(255, 206, 192, 3)),
+                  onPressed: () {
+                    // Handle Facebook button tap
+                  },
+                ),
+                IconButton(
+                  icon: const FaIcon(FontAwesomeIcons.github, color:Color.fromARGB(255, 206, 192, 3)),
+                  onPressed: () {
+                    // Handle GitHub button tap
+                  },
                 ),
               ],
             ),
           ),
-        );
-      },
+        ),
+      ],
     ),
   );
-}
+} 
 
 Widget _buildCityInfo() {
   final CityInfo cityInfo = citysInfo[_selectedIndex];
@@ -438,7 +483,8 @@ Widget _buildCityInfo() {
       title: Text(
         "${widget._imageNames[_selectedIndex]} Info",
         style: const TextStyle(
-          fontSize: 24.0,
+          color: Colors.black,
+          fontSize: 26.0,
           fontWeight: FontWeight.bold,
           fontFamily: 'Times New Roman',
         ),
@@ -446,7 +492,7 @@ Widget _buildCityInfo() {
       centerTitle: true,
       backgroundColor: customYellow,
       leading: IconButton(
-        icon: const Icon(Icons.arrow_back, size: 30),
+        icon: const Icon(Icons.arrow_back, size: 30, color: Colors.black),
         onPressed: () {
           setState(() {
             _showMap = false;
@@ -456,7 +502,7 @@ Widget _buildCityInfo() {
       ),
       actions: [
         IconButton(
-          icon: const Icon(Icons.map, size: 30.0),
+          icon: const Icon(Icons.map, size: 30.0, color: Colors.black),
           padding: const EdgeInsets.only(right: 10.0),
           onPressed: () {
             setState(() {
@@ -524,32 +570,32 @@ Widget _buildCityInfo() {
                         Text(
                           "Description: ${cityInfo.description}",
                           style: const TextStyle(fontSize: 16.0),
-			                    textAlign: TextAlign.center,
+                          textAlign: TextAlign.center,
                         ),
                         Text(
                           "Population: ${cityInfo.population}",
                           style: const TextStyle(fontSize: 16.0),
-			                    textAlign: TextAlign.center,
+                          textAlign: TextAlign.center,
                         ),
                         Text(
                           "LocalTime: ${cityInfo.localTime}",
                           style: const TextStyle(fontSize: 16.0),
-			                    textAlign: TextAlign.center,
+                          textAlign: TextAlign.center,
                         ),
                         Text(
                           "Currency: ${cityInfo.currency}",
                           style: const TextStyle(fontSize: 16.0),
-			                    textAlign: TextAlign.center,
+                          textAlign: TextAlign.center,
                         ),
                         Text(
                           "Language: ${cityInfo.language}",
                           style: const TextStyle(fontSize: 16.0),
-			                    textAlign: TextAlign.center,
+                          textAlign: TextAlign.center,
                         ),
                         Text(
                           "Weather: ${cityInfo.weather}",
                           style: const TextStyle(fontSize: 16.0),
-			                    textAlign: TextAlign.center,
+                          textAlign: TextAlign.center,
                         ),
                         Text(
                           "Landmarks: ${cityInfo.landmarks.join(', ')}",
@@ -559,12 +605,12 @@ Widget _buildCityInfo() {
                         Text(
                           "Transportation: ${cityInfo.transportation}",
                           style: const TextStyle(fontSize: 16.0),
-			                    textAlign: TextAlign.center,
+                          textAlign: TextAlign.center,
                         ),
                         Text(
                           "Points of interest: ${cityInfo.pointsOfInterest.join(', ')}",
                           style: const TextStyle(fontSize: 16.0),
-			                    textAlign: TextAlign.center,
+                          textAlign: TextAlign.center,
                         ),
                         Text(
                           "Local events: ${cityInfo.localEvents.join(', ')}",
@@ -601,23 +647,71 @@ Widget _buildCityInfo() {
         ),
       ),
     ),
+    bottomNavigationBar: Container(
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: Colors.black,
+            width: 4.0,
+          ),
+        ),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        color: customGray, // Set the footer background color here
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              icon: const FaIcon(
+                FontAwesomeIcons.instagram,
+                color: Color.fromARGB(255, 206, 192, 3),
+              ),
+              onPressed: () {
+                // Handle Instagram button tap
+              },
+            ),
+            IconButton(
+              icon: const FaIcon(
+                FontAwesomeIcons.facebook,
+                color: Color.fromARGB(255, 206, 192, 3),
+              ),
+              onPressed: () {
+                // Handle Facebook button tap
+              },
+            ),
+            IconButton(
+              icon: const FaIcon(
+                FontAwesomeIcons.github,
+                color: Color.fromARGB(255, 206, 192, 3),
+              ),
+              onPressed: () {
+                // Handle GitHub button tap
+              },
+            ),
+          ],
+        ),
+      ),
+    ),
   );
 }
+
 
   Widget _buildMapContainer() {
     return Scaffold(
       appBar: AppBar(
         title: Text("${widget._imageNames[_selectedIndex]} Map",
         style: const TextStyle(
-          fontSize: 24.0,
-          fontWeight: FontWeight.bold,
+          fontSize: 26.0,
+          fontWeight: FontWeight.bold, 
+          color: Colors.black,
           fontFamily: 'Times New Roman',
           ),
         ),
         centerTitle: true,
         backgroundColor: customYellow,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, size: 30),
+          icon: const Icon(Icons.arrow_back, size: 30, color: Colors.black),
           onPressed: () {
             setState(() {
               _showMap = false;
@@ -627,7 +721,7 @@ Widget _buildCityInfo() {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.info,  size: 30),
+            icon: const Icon(Icons.info,  size: 30, color: Colors.black),
             padding: const EdgeInsets.only(right: 16.0),
             onPressed: () {
               setState(() {
@@ -803,8 +897,55 @@ Widget _settingsPage(BuildContext context) {
         ],
       ),
     ),
+    bottomNavigationBar: Container(
+      decoration: const BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: Colors.black,
+            width: 4.0,
+          ),
+        ),
+      ),
+      child: Container(
+        padding: const EdgeInsets.all(16.0),
+        color: customGray, // Set the footer background color here
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            IconButton(
+              icon: const FaIcon(
+                FontAwesomeIcons.instagram,
+                color: Color.fromARGB(255, 206, 192, 3),
+              ),
+              onPressed: () {
+                // Handle Instagram button tap
+              },
+            ),
+            IconButton(
+              icon: const FaIcon(
+                FontAwesomeIcons.facebook,
+                color: Color.fromARGB(255, 206, 192, 3),
+              ),
+              onPressed: () {
+                // Handle Facebook button tap
+              },
+            ),
+            IconButton(
+              icon: const FaIcon(
+                FontAwesomeIcons.github,
+                color: Color.fromARGB(255, 206, 192, 3),
+              ),
+              onPressed: () {
+                // Handle GitHub button tap
+              },
+            ),
+          ],
+        ),
+      ),
+    ),
   );
 }
+
 
 void _showThemeDialog(BuildContext context) {
   showDialog(
