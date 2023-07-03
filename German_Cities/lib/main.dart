@@ -524,140 +524,252 @@ Widget _buildCityInfo() {
         ),
       ],
     ),
-    body: Container(
+    body: SingleChildScrollView(
+    child: Container(
       color: customGray,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: customYellow,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 5,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
-              ],
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 10),
-                  Text(
-                    widget._imageNames[_selectedIndex],
-                    style: const TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Times New Roman',
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                  Center(
+                    child: Text(
+                      widget._imageNames[_selectedIndex],
+                      style: const TextStyle(
+                        fontSize: 36,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Times New Roman',
+                        color: Colors.white,
+                        fontStyle: FontStyle.italic,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  Image.network(
-                    widget._imageUrls[_selectedIndex],
-                    fit: BoxFit.cover,
-                    height: 175,
-                    width: double.infinity,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    "Latitude: ${widget._cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    "Longitude: ${widget._cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                  const SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Text(
-                          "Description: ${cityInfo.description}",
-                          style: const TextStyle(fontSize: 16.0),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          "Population: ${cityInfo.population}",
-                          style: const TextStyle(fontSize: 16.0),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
-                          "LocalTime: ${cityInfo.localTime}",
-                          style: const TextStyle(fontSize: 16.0),
-                          textAlign: TextAlign.center,
-                        ),
-                        Text(
+                    const SizedBox(height: 10),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        "Latitude: ${widget._cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
+                        style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 5),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        "Longitude: ${widget._cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
+                        style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        "Description: ${cityInfo.description}",
+                        style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        "Population: ${cityInfo.population}",
+                        style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
+                        "LocalTime: ${cityInfo.localTime}",
+                        style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+
+                    Container(
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Text(
                           "Currency: ${cityInfo.currency}",
-                          style: const TextStyle(fontSize: 16.0),
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
-                        Text(
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          "Latitude: ${widget._cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
+                          style: const TextStyle(fontSize: 18, color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          "Longitude: ${widget._cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          "Description: ${cityInfo.description}",
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          "Population: ${cityInfo.population}",
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          "LocalTime: ${cityInfo.localTime}",
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
+                          "Currency: ${cityInfo.currency}",
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
                           "Language: ${cityInfo.language}",
-                          style: const TextStyle(fontSize: 16.0),
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
-                        Text(
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
                           "Weather: ${cityInfo.weather}",
-                          style: const TextStyle(fontSize: 16.0),
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
-                        Text(
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
                           "Landmarks: ${cityInfo.landmarks.join(', ')}",
-                          style: const TextStyle(fontSize: 16.0),
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
-                        Text(
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
                           "Transportation: ${cityInfo.transportation}",
-                          style: const TextStyle(fontSize: 16.0),
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
-                        Text(
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
                           "Points of interest: ${cityInfo.pointsOfInterest.join(', ')}",
-                          style: const TextStyle(fontSize: 16.0),
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
-                        Text(
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text(
                           "Local events: ${cityInfo.localEvents.join(', ')}",
-                          style: const TextStyle(fontSize: 16.0),
+                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        _showMap = false;
-                        _selectedIndex = -1;
-                      });
-                    },
-                    child: Text("Go back"),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black,
-                      shadowColor: customYellow,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(7.5),
+                      ),
+
+                    const SizedBox(height: 16),
+                    Center(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            _showMap = false;
+                            _selectedIndex = -1;
+                          });
+                        },
+                        child: Text("Go back"),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: customGray,
+                          shadowColor: customYellow,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(7.5),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                ],
+                    const SizedBox(height: 16),
+                  ],
+                ),
               ),
             ),
-          ),
+            const SizedBox(width: 16),
+            Expanded(
+              flex: 9,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: customGray,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Image.network(
+                  widget._imageUrls[_selectedIndex],
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
+    ),
     ),
     bottomNavigationBar: Container(
       padding: const EdgeInsets.all(16.0),
@@ -710,7 +822,6 @@ Widget _buildCityInfo() {
     ),
   );
 }
-
 
   Widget _buildMapContainer() {
     return Scaffold(
