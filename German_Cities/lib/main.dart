@@ -433,7 +433,6 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
 
 Widget _buildCityInfo() {
   final CityInfo cityInfo = citysInfo[_selectedIndex];
-
   return Scaffold(
     appBar: AppBar(
       title: Text(
@@ -472,22 +471,23 @@ Widget _buildCityInfo() {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
-          child: Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: customYellow,
-                borderRadius: BorderRadius.circular(10.0),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 5,
-                    blurRadius: 7,
-                    offset: const Offset(0, 3),
-                  ),
-                ],
-              ),
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: customYellow,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
+            child: SingleChildScrollView(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 10),
                   Text(
@@ -502,8 +502,8 @@ Widget _buildCityInfo() {
                   Image.network(
                     widget._imageUrls[_selectedIndex],
                     fit: BoxFit.cover,
-                    height: 475,
-                    width: 1050,
+                    height: 175,
+                    width: double.infinity,
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -516,45 +516,63 @@ Widget _buildCityInfo() {
                     style: const TextStyle(fontSize: 16.0),
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    "Description: ${cityInfo.description}",
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                  Text(
-                    "Population: ${cityInfo.population}",
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                  Text(
-                    "LocalTime: ${cityInfo.localTime}",
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                  Text(
-                    "Currency: ${cityInfo.currency}",
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                  Text(
-                    "Language: ${cityInfo.language}",
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                  Text(
-                    "Weather: ${cityInfo.weather}",
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                  Text(
-                    "Landmarks: ${cityInfo.landmarks.join(', ')}",
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                    Text(
-                      "Transportation: ${cityInfo.transportation}",
-                      style: const TextStyle(fontSize: 16.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          "Description: ${cityInfo.description}",
+                          style: const TextStyle(fontSize: 16.0),
+			                    textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "Population: ${cityInfo.population}",
+                          style: const TextStyle(fontSize: 16.0),
+			                    textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "LocalTime: ${cityInfo.localTime}",
+                          style: const TextStyle(fontSize: 16.0),
+			                    textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "Currency: ${cityInfo.currency}",
+                          style: const TextStyle(fontSize: 16.0),
+			                    textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "Language: ${cityInfo.language}",
+                          style: const TextStyle(fontSize: 16.0),
+			                    textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "Weather: ${cityInfo.weather}",
+                          style: const TextStyle(fontSize: 16.0),
+			                    textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "Landmarks: ${cityInfo.landmarks.join(', ')}",
+                          style: const TextStyle(fontSize: 16.0),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "Transportation: ${cityInfo.transportation}",
+                          style: const TextStyle(fontSize: 16.0),
+			                    textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "Points of interest: ${cityInfo.pointsOfInterest.join(', ')}",
+                          style: const TextStyle(fontSize: 16.0),
+			                    textAlign: TextAlign.center,
+                        ),
+                        Text(
+                          "Local events: ${cityInfo.localEvents.join(', ')}",
+                          style: const TextStyle(fontSize: 16.0),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
-                    Text(
-                    "Points of interest: ${cityInfo.pointsOfInterest.join(', ')}",
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                  Text(
-                    "Local events: ${cityInfo.localEvents.join(', ')}",
-                    style: const TextStyle(fontSize: 16.0),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
@@ -575,6 +593,7 @@ Widget _buildCityInfo() {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 16),
                 ],
               ),
             ),
