@@ -323,6 +323,10 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
   bool isDarkModeEnabled = false;
   bool isLocationEnabled = false;
 
+  Color facebookColor = Color.fromARGB(255, 65, 65, 65);
+  Color githubColor = Color.fromARGB(255, 65, 65, 65);
+  Color instagramColor = Color.fromARGB(255, 65, 65, 65);
+
   String selectedLanguage = 'English';
 
   final customGray = const Color.fromARGB(255, 65, 65, 65);
@@ -434,58 +438,94 @@ Widget _buildCityGrid() {
             },
           ),
         ),
-      Container(
-      padding: const EdgeInsets.all(16.0),
-      color: Colors.black, // Set the footer background color here
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-        const Text(
-            'Follow us on:',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
+       Container(
+        padding: const EdgeInsets.all(16.0),
+        color: Colors.black, // Set the footer background color here
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Follow us on:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.instagram,
-                  color: Color.fromARGB(255, 65, 65, 65),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      facebookColor = customYellow;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      facebookColor = customGray;
+                    });
+                  },
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.facebook,
+                      color: facebookColor,
+                    ),
+                    onPressed: () {
+                      // Handle Facebook button tap
+                    },
+                  ),
                 ),
-                onPressed: () {
-                  // Handle Instagram button tap
-                },
-              ),
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.facebook,
-                  color: Color.fromARGB(255, 65, 65, 65),
+                MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      githubColor = customYellow;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      githubColor = customGray;
+                    });
+                  },
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.github,
+                      color: githubColor,
+                    ),
+                    onPressed: () {
+                      // Handle GitHub button tap
+                    },
+                  ),
                 ),
-                onPressed: () {
-                  // Handle Facebook button tap
-                },
-              ),
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.github,
-                  color: Color.fromARGB(255, 65, 65, 65),
+                MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      instagramColor = customYellow;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      instagramColor = customGray;
+                    });
+                  },
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.instagram,
+                      color: instagramColor,
+                    ),
+                    onPressed: () {
+                      // Handle Instagram button tap
+                    },
+                  ),
                 ),
-                onPressed: () {
-                  // Handle GitHub button tap
-                },
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
+      ],
     ),
-    ],
-  ),
-  );
+    );
 } 
 
 Widget _buildCityInfo() {
@@ -772,54 +812,90 @@ Widget _buildCityInfo() {
     ),
     ),
     bottomNavigationBar: Container(
-      padding: const EdgeInsets.all(16.0),
-      color: Colors.black, // Set the footer background color here
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            'Follow us on:',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
+        padding: const EdgeInsets.all(16.0),
+        color: Colors.black, // Set the footer background color here
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Follow us on:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.instagram,
-                  color: Color.fromARGB(255, 65, 65, 65),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      facebookColor = customYellow;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      facebookColor = customGray;
+                    });
+                  },
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.facebook,
+                      color: facebookColor,
+                    ),
+                    onPressed: () {
+                      // Handle Facebook button tap
+                    },
+                  ),
                 ),
-                onPressed: () {
-                  // Handle Instagram button tap
-                },
-              ),
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.facebook,
-                  color: Color.fromARGB(255, 65, 65, 65),
+                MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      githubColor = customYellow;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      githubColor = customGray;
+                    });
+                  },
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.github,
+                      color: githubColor,
+                    ),
+                    onPressed: () {
+                      // Handle GitHub button tap
+                    },
+                  ),
                 ),
-                onPressed: () {
-                  // Handle Facebook button tap
-                },
-              ),
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.github,
-                  color: Color.fromARGB(255, 65, 65, 65),
+                MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      instagramColor = customYellow;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      instagramColor = customGray;
+                    });
+                  },
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.instagram,
+                      color: instagramColor,
+                    ),
+                    onPressed: () {
+                      // Handle Instagram button tap
+                    },
+                  ),
                 ),
-                onPressed: () {
-                  // Handle GitHub button tap
-                },
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
-    ),
   );
 }
 
@@ -1024,54 +1100,90 @@ Widget _settingsPage(BuildContext context) {
       ),
     ),
     bottomNavigationBar: Container(
-      padding: const EdgeInsets.all(16.0),
-      color: Colors.black, // Set the footer background color here
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Text(
-            'Follow us on:',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
+        padding: const EdgeInsets.all(16.0),
+        color: Colors.black, // Set the footer background color here
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Follow us on:',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.instagram,
-                  color: Color.fromARGB(255, 65, 65, 65),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      facebookColor = customYellow;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      facebookColor = customGray;
+                    });
+                  },
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.facebook,
+                      color: facebookColor,
+                    ),
+                    onPressed: () {
+                      // Handle Facebook button tap
+                    },
+                  ),
                 ),
-                onPressed: () {
-                  // Handle Instagram button tap
-                },
-              ),
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.facebook,
-                  color: Color.fromARGB(255, 65, 65, 65),
+                MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      githubColor = customYellow;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      githubColor = customGray;
+                    });
+                  },
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.github,
+                      color: githubColor,
+                    ),
+                    onPressed: () {
+                      // Handle GitHub button tap
+                    },
+                  ),
                 ),
-                onPressed: () {
-                  // Handle Facebook button tap
-                },
-              ),
-              IconButton(
-                icon: const FaIcon(
-                  FontAwesomeIcons.github,
-                  color: Color.fromARGB(255, 65, 65, 65),
+                MouseRegion(
+                  onEnter: (_) {
+                    setState(() {
+                      instagramColor = customYellow;
+                    });
+                  },
+                  onExit: (_) {
+                    setState(() {
+                      instagramColor = customGray;
+                    });
+                  },
+                  child: IconButton(
+                    icon: FaIcon(
+                      FontAwesomeIcons.instagram,
+                      color: instagramColor,
+                    ),
+                    onPressed: () {
+                      // Handle Instagram button tap
+                    },
+                  ),
                 ),
-                onPressed: () {
-                  // Handle GitHub button tap
-                },
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
-    ),
   );
 }
 
