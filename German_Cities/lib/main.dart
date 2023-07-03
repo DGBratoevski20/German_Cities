@@ -3,7 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
+import 'package:countries_flag/countries_flag.dart';
 
 void main() {
   runApp(GermanCitiesApp());
@@ -434,45 +434,57 @@ Widget _buildCityGrid() {
             },
           ),
         ),
-        Container(
-          decoration: const BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: Colors.black,
-                width: 4.0,
+      Container(
+      padding: const EdgeInsets.all(16.0),
+      color: Colors.black, // Set the footer background color here
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+        const Text(
+            'Follow us on:',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.instagram,
+                  color: Color.fromARGB(255, 65, 65, 65),
+                ),
+                onPressed: () {
+                  // Handle Instagram button tap
+                },
               ),
-            ),
+              IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.facebook,
+                  color: Color.fromARGB(255, 65, 65, 65),
+                ),
+                onPressed: () {
+                  // Handle Facebook button tap
+                },
+              ),
+              IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.github,
+                  color: Color.fromARGB(255, 65, 65, 65),
+                ),
+                onPressed: () {
+                  // Handle GitHub button tap
+                },
+              ),
+            ],
           ),
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            color: customGray, // Set the footer background color here
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.instagram, color:Color.fromARGB(255, 206, 192, 3)),
-                  onPressed: () {
-                    // Handle Instagram button tap
-                  },
-                ),
-                IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.facebook, color:Color.fromARGB(255, 206, 192, 3)),
-                  onPressed: () {
-                    // Handle Facebook button tap
-                  },
-                ),
-                IconButton(
-                  icon: const FaIcon(FontAwesomeIcons.github, color:Color.fromARGB(255, 206, 192, 3)),
-                  onPressed: () {
-                    // Handle GitHub button tap
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
+        ],
+      ),
     ),
+    ],
+  ),
   );
 } 
 
@@ -648,49 +660,52 @@ Widget _buildCityInfo() {
       ),
     ),
     bottomNavigationBar: Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Colors.black,
-            width: 4.0,
+      padding: const EdgeInsets.all(16.0),
+      color: Colors.black, // Set the footer background color here
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            'Follow us on:',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        color: customGray, // Set the footer background color here
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              icon: const FaIcon(
-                FontAwesomeIcons.instagram,
-                color: Color.fromARGB(255, 206, 192, 3),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.instagram,
+                  color: Color.fromARGB(255, 65, 65, 65),
+                ),
+                onPressed: () {
+                  // Handle Instagram button tap
+                },
               ),
-              onPressed: () {
-                // Handle Instagram button tap
-              },
-            ),
-            IconButton(
-              icon: const FaIcon(
-                FontAwesomeIcons.facebook,
-                color: Color.fromARGB(255, 206, 192, 3),
+              IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.facebook,
+                  color: Color.fromARGB(255, 65, 65, 65),
+                ),
+                onPressed: () {
+                  // Handle Facebook button tap
+                },
               ),
-              onPressed: () {
-                // Handle Facebook button tap
-              },
-            ),
-            IconButton(
-              icon: const FaIcon(
-                FontAwesomeIcons.github,
-                color: Color.fromARGB(255, 206, 192, 3),
+              IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.github,
+                  color: Color.fromARGB(255, 65, 65, 65),
+                ),
+                onPressed: () {
+                  // Handle GitHub button tap
+                },
               ),
-              onPressed: () {
-                // Handle GitHub button tap
-              },
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     ),
   );
@@ -898,49 +913,52 @@ Widget _settingsPage(BuildContext context) {
       ),
     ),
     bottomNavigationBar: Container(
-      decoration: const BoxDecoration(
-        border: Border(
-          top: BorderSide(
-            color: Colors.black,
-            width: 4.0,
+      padding: const EdgeInsets.all(16.0),
+      color: Colors.black, // Set the footer background color here
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Text(
+            'Follow us on:',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-        ),
-      ),
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        color: customGray, // Set the footer background color here
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            IconButton(
-              icon: const FaIcon(
-                FontAwesomeIcons.instagram,
-                color: Color.fromARGB(255, 206, 192, 3),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.instagram,
+                  color: Color.fromARGB(255, 65, 65, 65),
+                ),
+                onPressed: () {
+                  // Handle Instagram button tap
+                },
               ),
-              onPressed: () {
-                // Handle Instagram button tap
-              },
-            ),
-            IconButton(
-              icon: const FaIcon(
-                FontAwesomeIcons.facebook,
-                color: Color.fromARGB(255, 206, 192, 3),
+              IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.facebook,
+                  color: Color.fromARGB(255, 65, 65, 65),
+                ),
+                onPressed: () {
+                  // Handle Facebook button tap
+                },
               ),
-              onPressed: () {
-                // Handle Facebook button tap
-              },
-            ),
-            IconButton(
-              icon: const FaIcon(
-                FontAwesomeIcons.github,
-                color: Color.fromARGB(255, 206, 192, 3),
+              IconButton(
+                icon: const FaIcon(
+                  FontAwesomeIcons.github,
+                  color: Color.fromARGB(255, 65, 65, 65),
+                ),
+                onPressed: () {
+                  // Handle GitHub button tap
+                },
               ),
-              onPressed: () {
-                // Handle GitHub button tap
-              },
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     ),
   );
@@ -952,13 +970,13 @@ void _showThemeDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        backgroundColor: customGray,
+        backgroundColor: Colors.black,
         title: const Text(
           'Theme Settings',
           style: TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 206, 192, 3),
+            color: Colors.white,
           ),
         ),
         content: Column(
@@ -967,11 +985,12 @@ void _showThemeDialog(BuildContext context) {
             ListTile(
               leading: const Icon(
                 Icons.brightness_5,
-                color: Color.fromARGB(255, 206, 192, 3),
+                color: Colors.white,
               ),
               title: const Text(
                 'Light Mode',
-                style: TextStyle(color: Color.fromARGB(255, 206, 192, 3)),
+                style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 16,),
+                
               ),
               onTap: () {
                 setState(() {
@@ -983,11 +1002,11 @@ void _showThemeDialog(BuildContext context) {
             ListTile(
               leading: const Icon(
                 Icons.brightness_2,
-                color: Color.fromARGB(255, 206, 192, 3),
+                color: Colors.white,
               ),
               title: const Text(
                 'Dark Mode',
-                style: TextStyle(color: Color.fromARGB(255, 206, 192, 3)),
+                style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 16,),
               ),
               onTap: () {
                 setState(() {
@@ -1008,7 +1027,7 @@ void _showLanguageDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        backgroundColor: customGray,
+        backgroundColor: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -1024,57 +1043,104 @@ void _showLanguageDialog(BuildContext context) {
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold, 
-                    color: Color.fromARGB(255, 206, 192, 3),
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                ListTile(
-                  leading: const Icon(
-                    Icons.language,
-                    color: Color.fromARGB(255, 206, 192, 3),
-                  ),
-                  title: const Text('English', style:TextStyle(
-                    color: Color.fromARGB(255, 206, 192, 3)
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedLanguage = 'English';
+                      });
+                      Navigator.of(context).pop();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CountriesFlag(
+                          Flags.unitedKingdom,
+                          width: 30,
+                          height: 30,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                        ),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'English',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  onTap: () {
-                    setState(() {
-                      selectedLanguage = 'English';
-                    });
-                    Navigator.of(context).pop();
-                  },
                 ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.language,
-                    color: Color.fromARGB(255, 206, 192, 3),
-                  ),
-                  title: const Text('German', style:TextStyle(
-                    color: Color.fromARGB(255, 206, 192, 3)
+                const SizedBox(height: 5.0),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedLanguage = 'German';
+                      });
+                      Navigator.of(context).pop();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CountriesFlag(
+                          Flags.germany,
+                          width: 30,
+                          height: 30,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                        ),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'German',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  onTap: () {
-                    setState(() {
-                      selectedLanguage = 'German';
-                    });
-                    Navigator.of(context).pop();
-                  },
                 ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.language,
-                    color: Color.fromARGB(255, 206, 192, 3),
-                  ),
-                  title: const Text('Bulgarian', style:TextStyle(
-                    color: Color.fromARGB(255, 206, 192, 3)
+                const SizedBox(height: 7.0),
+                Center(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedLanguage = 'Bulgarian';
+                      });
+                      Navigator.of(context).pop();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CountriesFlag(
+                          Flags.bulgaria,
+                          width: 30,
+                          height: 30,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.center,
+                        ),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'Bulgarian',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  onTap: () {
-                    setState(() {
-                      selectedLanguage = 'Bulgarian';
-                    });
-                    Navigator.of(context).pop();
-                  },
                 ),
               ],
             ),
@@ -1091,7 +1157,7 @@ void _showLocationDialog(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return Dialog(
-        backgroundColor: customGray, // Set the background color to customGray
+        backgroundColor: Colors.black, // Set the background color to customGray
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
         ),
@@ -1107,19 +1173,21 @@ void _showLocationDialog(BuildContext context) {
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 206, 192, 3),
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 16.0),
                 ListTile(
                   leading: const Icon(
                     Icons.location_on,
-                    color: Color.fromARGB(255, 206, 192, 3),
+                    color: Colors.white,
                   ),
                   title: const Text(
                     'Show Your Location',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 206, 192, 3),
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
                     ),
                   ),
                   trailing: Switch(
@@ -1129,10 +1197,10 @@ void _showLocationDialog(BuildContext context) {
                         isLocationEnabled = value;
                       });
                     },
-                    activeColor: Colors.black,
-                    activeTrackColor: customYellow,
-                    inactiveTrackColor: customYellow,
-                    inactiveThumbColor: Colors.black,
+                    activeColor: Colors.white,
+                    activeTrackColor: customGray,
+                    inactiveTrackColor: customGray,
+                    inactiveThumbColor: Colors.white,
                   ),
                 ),
               ],
