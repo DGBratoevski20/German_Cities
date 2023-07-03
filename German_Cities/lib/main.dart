@@ -472,7 +472,7 @@ Widget _buildCityGrid() {
                       color: facebookColor,
                     ),
                     onPressed: () {
-                      // Handle Facebook button tap
+                      //Handle Facbook button tap 
                     },
                   ),
                 ),
@@ -602,7 +602,7 @@ Widget _buildCityInfo() {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                         "Latitude: ${widget._cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
-                        style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                        style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -612,17 +612,17 @@ Widget _buildCityInfo() {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                         "Longitude: ${widget._cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
-                        style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                        style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 10),
                     Container(
                       alignment: Alignment.center,
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                         "Description: ${cityInfo.description}",
-                        style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                        style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -631,7 +631,7 @@ Widget _buildCityInfo() {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                         "Population: ${cityInfo.population}",
-                        style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                        style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -640,7 +640,7 @@ Widget _buildCityInfo() {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                         "LocalTime: ${cityInfo.localTime}",
-                        style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                        style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
                     ),
@@ -650,7 +650,7 @@ Widget _buildCityInfo() {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                           "Currency: ${cityInfo.currency}",
-                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -659,17 +659,16 @@ Widget _buildCityInfo() {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           "Latitude: ${widget._cityCoordinates[_selectedIndex].latitude.toStringAsFixed(4)}",
-                          style: const TextStyle(fontSize: 18, color: Colors.white),
+                          style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      const SizedBox(height: 5),
                       Container(
                         alignment: Alignment.center,
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
                         child: Text(
                           "Longitude: ${widget._cityCoordinates[_selectedIndex].longitude.toStringAsFixed(4)}",
-                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -679,7 +678,7 @@ Widget _buildCityInfo() {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           "Description: ${cityInfo.description}",
-                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -688,7 +687,7 @@ Widget _buildCityInfo() {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           "Population: ${cityInfo.population}",
-                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -697,7 +696,7 @@ Widget _buildCityInfo() {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           "LocalTime: ${cityInfo.localTime}",
-                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -706,7 +705,7 @@ Widget _buildCityInfo() {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           "Currency: ${cityInfo.currency}",
-                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -733,7 +732,7 @@ Widget _buildCityInfo() {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           "Landmarks: ${cityInfo.landmarks.join(', ')}",
-                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -742,7 +741,7 @@ Widget _buildCityInfo() {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           "Transportation: ${cityInfo.transportation}",
-                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -751,7 +750,7 @@ Widget _buildCityInfo() {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           "Points of interest: ${cityInfo.pointsOfInterest.join(', ')}",
-                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -760,7 +759,7 @@ Widget _buildCityInfo() {
                         padding: const EdgeInsets.symmetric(horizontal: 16.0),
                         child: Text(
                           "Local events: ${cityInfo.localEvents.join(', ')}",
-                          style: const TextStyle(fontSize: 18.0, color: Colors.white),
+                          style: const TextStyle(fontSize: 18,fontFamily: 'Arial', color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -803,6 +802,7 @@ Widget _buildCityInfo() {
                   widget._imageUrls[_selectedIndex],
                   fit: BoxFit.cover,
                   width: double.infinity,
+                  height: 780,
                 ),
               ),
             ),
@@ -1019,6 +1019,7 @@ Widget _settingsPage(BuildContext context) {
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'Tahoma'
                   ),
                 ),
                 trailing: Switch(
@@ -1049,6 +1050,7 @@ Widget _settingsPage(BuildContext context) {
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'Tahoma'
                   ),
                 ),
                 trailing: Icon(
@@ -1071,6 +1073,7 @@ Widget _settingsPage(BuildContext context) {
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'Tahoma'
                   ),
                 ),
                 trailing: Icon(Icons.arrow_forward_ios),
@@ -1090,6 +1093,7 @@ Widget _settingsPage(BuildContext context) {
                   style: TextStyle(
                     fontSize: 30.0,
                     fontWeight: FontWeight.bold,
+                    fontFamily: 'Tahoma'
                   ),
                 ),
                 trailing: Icon(Icons.arrow_forward_ios),
@@ -1200,6 +1204,7 @@ void _showThemeDialog(BuildContext context) {
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
             color: Colors.white,
+            fontFamily: 'Arial Black'
           ),
         ),
         content: Column(
@@ -1212,7 +1217,7 @@ void _showThemeDialog(BuildContext context) {
               ),
               title: const Text(
                 'Light Mode',
-                style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 16,),
+                style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,fontFamily: 'Calibri'),
                 
               ),
               onTap: () {
@@ -1229,7 +1234,7 @@ void _showThemeDialog(BuildContext context) {
               ),
               title: const Text(
                 'Dark Mode',
-                style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 16,),
+                style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold, fontSize: 20,fontFamily: 'Calibri'),
               ),
               onTap: () {
                 setState(() {
@@ -1267,6 +1272,7 @@ void _showLanguageDialog(BuildContext context) {
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold, 
                     color: Colors.white,
+                    fontFamily: 'Arial Black'
                   ),
                 ),
                 const SizedBox(height: 16.0),
@@ -1294,7 +1300,8 @@ void _showLanguageDialog(BuildContext context) {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 20,
+                            fontFamily: 'Calibri'
                           ),
                         ),
                       ],
@@ -1326,7 +1333,8 @@ void _showLanguageDialog(BuildContext context) {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 20,
+                            fontFamily: 'Calibri'
                           ),
                         ),
                       ],
@@ -1358,7 +1366,8 @@ void _showLanguageDialog(BuildContext context) {
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 16,
+                            fontSize: 20,
+                            fontFamily: 'Calibri'
                           ),
                         ),
                       ],
@@ -1397,6 +1406,7 @@ void _showLocationDialog(BuildContext context) {
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
+                    fontFamily: 'Arial Black'
                   ),
                 ),
                 const SizedBox(height: 16.0),
@@ -1410,7 +1420,8 @@ void _showLocationDialog(BuildContext context) {
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 24,
+                      fontFamily: 'Calibri'
                     ),
                   ),
                   trailing: Switch(
