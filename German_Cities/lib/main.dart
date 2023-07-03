@@ -7,6 +7,245 @@ void main() {
   runApp(GermanCitiesApp());
 }
 
+class CityInfo {
+  final String cityName;
+  final String description;
+  final int population;
+  final String localTime;
+  final String currency;
+  final String language;
+  final String weather;
+  final List<String> landmarks;
+  final String transportation;
+  final List<String> pointsOfInterest;
+  final List<String> localEvents;
+
+  CityInfo({
+    required this.cityName,
+    required this.description,
+    required this.population,
+    required this.localTime,
+    required this.currency,
+    required this.language,
+    required this.weather,
+    required this.landmarks,
+    required this.transportation,
+    required this.pointsOfInterest,
+    required this.localEvents,
+  });
+}
+
+final List<CityInfo> citysInfo = [
+  CityInfo(
+    cityName: "Berlin",
+    description: "Description of Berlin",
+    population: 3769495,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Sunny",
+    landmarks: ["Brandenburg Gate", "Berlin Wall", "Museum Island"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Checkpoint Charlie", "Potsdamer Platz", "Alexanderplatz"],
+    localEvents: ["Berlin International Film Festival", "Karneval der Kulturen"],
+  ),
+  CityInfo(
+    cityName: "Hamburg",
+    description: "Description of Hamburg",
+    population: 1841179,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Cloudy",
+    landmarks: ["Speicherstadt", "Hamburg Harbor", "St. Michael's Church"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Miniatur Wunderland", "Hamburg Rathaus", "Reeperbahn"],
+    localEvents: ["Hamburg DOM", "Hamburger Dom"],
+  ),
+  CityInfo(
+    cityName: "Munich",
+    description: "Description of Munich",
+    population: 1471508,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Rainy",
+    landmarks: ["Marienplatz", "Neuschwanstein Castle", "English Garden"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Hofbräuhaus", "Nymphenburg Palace", "Olympiapark"],
+    localEvents: ["Oktoberfest", "Christmas Markets"],
+  ),
+  CityInfo(
+    cityName: "Cologne",
+    description: "Description of Cologne",
+    population: 1085664,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Partly cloudy",
+    landmarks: ["Cologne Cathedral", "Hohenzollern Bridge", "Museum Ludwig"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Cologne Old Town", "Rhine River", "Lanxess Arena"],
+    localEvents: ["Cologne Carnival", "Cologne Lights"],
+  ),
+  CityInfo(
+    cityName: "Frankfurt",
+    description: "Description of Frankfurt",
+    population: 753056,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Windy",
+    landmarks: ["Römer", "Frankfurt Cathedral", "Palmengarten"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Main Tower", "Goethe House", "Zeil Shopping Street"],
+    localEvents: ["Frankfurt Book Fair", "Museumsuferfest"],
+  ),
+  CityInfo(
+    cityName: "Stuttgart",
+    description: "Description of Stuttgart",
+    population: 635911,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Sunny",
+    landmarks: ["Mercedes-Benz Museum", "Stuttgart State Gallery", "Stuttgart TV Tower"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Schlossplatz", "Wilhelma Zoo", "Porsche Museum"],
+    localEvents: ["Cannstatter Volksfest", "Stuttgart Wine Festival"],
+  ),
+  CityInfo(
+    cityName: "Düsseldorf",
+    description: "Description of Düsseldorf",
+    population: 619294,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Cloudy",
+    landmarks: ["Rhine Tower", "Königsallee", "Media Harbor"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Old Town", "Rheinuferpromenade", "Aquazoo-Löbbecke-Museum"],
+    localEvents: ["Rheinkirmes", "Japan Day Düsseldorf"],
+  ),
+  CityInfo(
+    cityName: "Dortmund",
+    description: "Description of Dortmund",
+    population: 587010,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Rainy",
+    landmarks: ["Signal Iduna Park", "Dortmund U-Tower", "Westfalenpark"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Phoenix-See", "DASA Arbeitswelt Ausstellung", "Hohensyburg Casino"],
+    localEvents: ["Juicy Beats Festival", "Christmas Market Dortmund"],
+  ),
+  CityInfo(
+    cityName: "Essen",
+    description: "Description of Essen",
+    population: 582624,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Partly cloudy",
+    landmarks: ["Zollverein Coal Mine Industrial Complex", "Essen Cathedral", "Villa Hügel"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Baldeneysee", "Folkwang Museum", "Grugapark"],
+    localEvents: ["Essen Light Festival", "Grugamarkt"],
+  ),
+  CityInfo(
+    cityName: "Leipzig",
+    description: "Description of Leipzig",
+    population: 587857,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Windy",
+    landmarks: ["Leipzig Zoo", "St. Thomas Church", "Monument to the Battle of the Nations"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Augustusplatz", "Leipzig Opera", "Panometer"],
+    localEvents: ["Leipzig Book Fair", "Wave-Gotik-Treffen"],
+  ),
+  CityInfo(
+    cityName: "Bremen",
+    description: "Description of Bremen",
+    population: 567559,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Sunny",
+    landmarks: ["Bremen Town Hall", "Bremen Cathedral", "Schnoor Quarter"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Universum Bremen", "Böttcherstraße", "Bremen Roland"],
+    localEvents: ["Freimarkt Bremen", "Bremer Musikfest"],
+  ),
+  CityInfo(
+    cityName: "Dresden",
+    description: "Description of Dresden",
+    population: 556780,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Cloudy",
+    landmarks: ["Dresden Frauenkirche", "Zwinger Palace", "Semperoper"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Elbe River", "Dresden Castle", "Neustadt District"],
+    localEvents: ["Dresden Striezelmarkt", "Dresden Music Festival"],
+  ),
+  CityInfo(
+    cityName: "Hanover",
+    description: "Description of Hanover",
+    population: 538068,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Rainy",
+    landmarks: ["New Town Hall", "Herrenhausen Gardens", "Hanover Opera"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Maschsee", "Marktkirche", "Royal Gardens of Herrenhausen"],
+    localEvents: ["Schützenfest Hannover", "Maschseefest"],
+  ),
+  CityInfo(
+    cityName: "Nuremberg",
+    description: "Description of Nuremberg",
+    population: 518365,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: "Partly cloudy",
+    landmarks: ["Nuremberg Castle", "Nuremberg Old Town", "Germanisches Nationalmuseum"],
+    transportation: "Public transportation system",
+    pointsOfInterest: ["Documentation Center Nazi Party Rally Grounds", "Albrecht Dürer's House", "St. Lorenz Church"],
+    localEvents: ["Nuremberg Christkindlesmarkt", "Rock im Park"],
+  ),
+  CityInfo(
+    cityName: " ",
+    description: "Description of ",
+    population: 0,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: " ",
+    landmarks: [" ", " ", " "],
+    transportation: "Public transportation system",
+    pointsOfInterest: [" ", " ", " "],
+    localEvents: [" ", " "],
+  ),
+  CityInfo(
+    cityName: " ",
+    description: "Description of ",
+    population: 0,
+    localTime: DateTime.now().toString(),
+    currency: "Euro",
+    language: "German",
+    weather: " ",
+    landmarks: [" ", " ", " "],
+    transportation: "Public transportation system",
+    pointsOfInterest: [" ", " ", " "],
+    localEvents: [" ", " "],
+  ),
+];
+
 class GermanCitiesApp extends StatefulWidget {
   GermanCitiesApp({super.key});
 
@@ -47,6 +286,8 @@ class GermanCitiesApp extends StatefulWidget {
     "",
     "",
   ];
+
+  
 
   final List<LatLng> _cityCoordinates = [
     const LatLng(52.514629, 13.38923),
@@ -190,10 +431,19 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
   );
 }
 
- Widget _buildCityInfo() {
+Widget _buildCityInfo() {
+  final CityInfo cityInfo = citysInfo[_selectedIndex];
+
   return Scaffold(
     appBar: AppBar(
-      title: Text("${widget._imageNames[_selectedIndex]} Info"),
+      title: Text(
+        "${widget._imageNames[_selectedIndex]} Info",
+        style: const TextStyle(
+          fontSize: 24.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Times New Roman',
+        ),
+      ),
       centerTitle: true,
       backgroundColor: customYellow,
       leading: IconButton(
@@ -218,7 +468,7 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
       ],
     ),
     body: Container(
-      color: customGray, //
+      color: customGray,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -232,14 +482,14 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
                     color: Colors.grey.withOpacity(0.5),
                     spreadRadius: 5,
                     blurRadius: 7,
-                    offset: Offset(0, 3),
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   const SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     widget._imageNames[_selectedIndex],
                     style: const TextStyle(
@@ -248,12 +498,12 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
                       fontFamily: 'Times New Roman',
                     ),
                   ),
-                   const SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Image.network(
                     widget._imageUrls[_selectedIndex],
                     fit: BoxFit.cover,
-                    height: 700,
-                    width: 1050
+                    height: 475,
+                    width: 1050,
                   ),
                   const SizedBox(height: 10),
                   Text(
@@ -266,14 +516,55 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
                     style: const TextStyle(fontSize: 16.0),
                   ),
                   const SizedBox(height: 16),
+                  Text(
+                    "Description: ${cityInfo.description}",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                  Text(
+                    "Population: ${cityInfo.population}",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                  Text(
+                    "LocalTime: ${cityInfo.localTime}",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                  Text(
+                    "Currency: ${cityInfo.currency}",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                  Text(
+                    "Language: ${cityInfo.language}",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                  Text(
+                    "Weather: ${cityInfo.weather}",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                  Text(
+                    "Landmarks: ${cityInfo.landmarks.join(', ')}",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                    Text(
+                      "Transportation: ${cityInfo.transportation}",
+                      style: const TextStyle(fontSize: 16.0),
+                    ),
+                    Text(
+                    "Points of interest: ${cityInfo.pointsOfInterest.join(', ')}",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                  Text(
+                    "Local events: ${cityInfo.localEvents.join(', ')}",
+                    style: const TextStyle(fontSize: 16.0),
+                  ),
+                  const SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
                         _showMap = false;
-                        _selectedIndex = -1; // Reset the selected index
+                        _selectedIndex = -1;
                       });
                     },
-                    child: const Text("Go back"),
+                    child: Text("Go back"),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                       shadowColor: customYellow,
@@ -297,7 +588,13 @@ class _GermanCitiesAppState extends State<GermanCitiesApp> {
   Widget _buildMapContainer() {
     return Scaffold(
       appBar: AppBar(
-        title: Text("${widget._imageNames[_selectedIndex]} Map"),
+        title: Text("${widget._imageNames[_selectedIndex]} Map",
+        style: const TextStyle(
+          fontSize: 24.0,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Times New Roman',
+          ),
+        ),
         centerTitle: true,
         backgroundColor: customYellow,
         leading: IconButton(
@@ -396,7 +693,7 @@ Widget _settingsPage(BuildContext context) {
           GestureDetector(
             onTap: () {
               setState(() {
-                isMusicEnabled = !isMusicEnabled; // Toggle music option
+                isMusicEnabled = !isMusicEnabled;
               });
             },
             child: Container(
@@ -413,10 +710,10 @@ Widget _settingsPage(BuildContext context) {
                   value: isMusicEnabled,
                   onChanged: (value) {
                     setState(() {
-                      isMusicEnabled = value; // Update music option
+                      isMusicEnabled = value;
                     });
                   },
-                  activeColor: Colors.black, // Color when music is enabled
+                  activeColor: Colors.black,
                   activeTrackColor: customGray,
                   inactiveTrackColor: customGray,
                   inactiveThumbColor: Colors.black,
@@ -427,7 +724,7 @@ Widget _settingsPage(BuildContext context) {
           const SizedBox(height: 100),
           GestureDetector(
             onTap: () {
-              _showThemeDialog(context); // Show theme settings dialog
+              _showThemeDialog(context);
             },
             child: Container(
               color: customYellow,
@@ -449,7 +746,7 @@ Widget _settingsPage(BuildContext context) {
           const SizedBox(height: 100),
           GestureDetector(
             onTap: () {
-              _showLanguageDialog(context); // Show language settings dialog
+              _showLanguageDialog(context);
             },
             child: Container(
               color: customYellow,
@@ -461,14 +758,14 @@ Widget _settingsPage(BuildContext context) {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                trailing: const Icon(Icons.arrow_forward_ios),
+                trailing: Icon(Icons.arrow_forward_ios),
               ),
             ),
           ),
           const SizedBox(height: 100),
           GestureDetector(
             onTap: () {
-              _showLocationDialog(context); // Show location settings dialog
+              _showLocationDialog(context);
             },
             child: Container(
               color: customYellow,
@@ -480,7 +777,7 @@ Widget _settingsPage(BuildContext context) {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                trailing: const Icon(Icons.arrow_forward_ios),
+                trailing: Icon(Icons.arrow_forward_ios),
               ),
             ),
           ),
@@ -501,7 +798,7 @@ void _showThemeDialog(BuildContext context) {
           style: TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
-            color: Color.fromARGB(255, 206, 192, 3), // Set text color to customYellow
+            color: Color.fromARGB(255, 206, 192, 3),
           ),
         ),
         content: Column(
@@ -510,15 +807,15 @@ void _showThemeDialog(BuildContext context) {
             ListTile(
               leading: const Icon(
                 Icons.brightness_5,
-                color: Color.fromARGB(255, 206, 192, 3), // Set icon color to customYellow
+                color: Color.fromARGB(255, 206, 192, 3),
               ),
               title: const Text(
                 'Light Mode',
-                style: TextStyle(color: Color.fromARGB(255, 206, 192, 3)), // Set text color to customYellow
+                style: TextStyle(color: Color.fromARGB(255, 206, 192, 3)),
               ),
               onTap: () {
                 setState(() {
-                  isDarkModeEnabled = false; // Switch to light mode
+                  isDarkModeEnabled = false;
                 });
                 Navigator.of(context).pop();
               },
@@ -526,15 +823,15 @@ void _showThemeDialog(BuildContext context) {
             ListTile(
               leading: const Icon(
                 Icons.brightness_2,
-                color: Color.fromARGB(255, 206, 192, 3), // Set icon color to customYellow
+                color: Color.fromARGB(255, 206, 192, 3),
               ),
               title: const Text(
                 'Dark Mode',
-                style: TextStyle(color: Color.fromARGB(255, 206, 192, 3)), // Set text color to customYellow
+                style: TextStyle(color: Color.fromARGB(255, 206, 192, 3)),
               ),
               onTap: () {
                 setState(() {
-                  isDarkModeEnabled = true; // Switch to dark mode
+                  isDarkModeEnabled = true;
                 });
                 Navigator.of(context).pop();
               },
@@ -556,7 +853,7 @@ void _showLanguageDialog(BuildContext context) {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: FractionallySizedBox(
-          widthFactor: 0.14,
+          widthFactor: 0.22,
           child: Container(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -566,7 +863,7 @@ void _showLanguageDialog(BuildContext context) {
                   'Language Settings',
                   style: TextStyle(
                     fontSize: 24.0,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.bold, 
                     color: Color.fromARGB(255, 206, 192, 3),
                   ),
                 ),
@@ -639,7 +936,7 @@ void _showLocationDialog(BuildContext context) {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: FractionallySizedBox(
-          widthFactor: 0.2, // Set the desired width factor here
+          widthFactor: 0.28,
           child: Container(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -650,19 +947,19 @@ void _showLocationDialog(BuildContext context) {
                   style: TextStyle(
                     fontSize: 24.0,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 206, 192, 3), // Set the text color to customYellow
+                    color: Color.fromARGB(255, 206, 192, 3),
                   ),
                 ),
                 const SizedBox(height: 16.0),
                 ListTile(
                   leading: const Icon(
                     Icons.location_on,
-                    color: Color.fromARGB(255, 206, 192, 3), // Set the icon color to customYellow
+                    color: Color.fromARGB(255, 206, 192, 3),
                   ),
                   title: const Text(
                     'Show Your Location',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 206, 192, 3), // Set the text color to customYellow
+                      color: Color.fromARGB(255, 206, 192, 3),
                     ),
                   ),
                   trailing: Switch(
